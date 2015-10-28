@@ -40,6 +40,7 @@
 	}
 \usepackage{algpseudocode} %algorithms
 \usepackage{algorithm} %algorithms
+\usepackage{environ}
 
 \renewcommand{\marginfont}{\scriptsize \color{red}}
 
@@ -71,6 +72,11 @@
 \renewcommand{\tilde}{\widetilde}
 
 \SetupExSheets{solution/print = true} %prints all solutions by default
+
+% Uncomment to hide proofs
+%\NewEnviron{killcontents}{}
+%\let\proof\killcontents
+%\let\endproof\endkillcontents
 
 %opening
 \title{Harmonic Analysis}
@@ -218,7 +224,10 @@ Telephone: \href{tel:+972 3-640-6024}{+972 3-640-6024}
 	\begin{align*}
 		E & = \int\limits_{-L}^{L} \cos\left( \frac{m \pi}{L} x \right) \cos\left( \frac{n \pi}{L} x \right) \dif x \\
                   & = \int\limits_{-L}^{L} \frac{1}{2} \left( \cos\left( (m + n) \frac{\pi}{L} x \right) + \cos\left( (m - n) \frac{\pi}{L} x \right) \right) \dif x
-		\marginnote{$\because \left( \cos \alpha \cos \beta = \frac{1}{2} \left( \cos(\alpha + \beta) + \cos(\alpha - \beta) \right) \right)$}
+		\marginnote
+		{
+			$\because \cos \alpha \cos \beta = \frac{\cos(\alpha + \beta)}{2} + \frac{\cos(\alpha - \beta)}{2}$
+		}
 	\end{align*}
 	If $m \neq n$,
 	\begin{align*}
@@ -313,7 +322,7 @@ Therefore, substituting in the Fourier series,
 	&\approx \sum\limits_{n = -\infty}^{\infty} c_n e^{\frac{i n \pi}{L} x}
 \end{align*}
 
-\subsection{Bessel's Inequality}
+\section{Bessel's Inequality}
 
 \begin{definition}[Piecewise continuous functions]
 	$f : \mathbb{R} \to \mathbb{R}$ is said to be piecewise continuous if, for every finite interval $[a,b]$ there is a finite number of discontinuity points, and the one-sided limits at each of these points are also finite.
@@ -337,6 +346,141 @@ Therefore, substituting in the Fourier series,
 		\frac{1}{2} {a_0}^2 + \sum\limits_{n = 1}^{\infty} {a_n}^2 + {b_n}^2 &\le \frac{1}{L} \int\limits_{-L}^{L} {f(x)}^2 \dif x
 	\end{align*}
 	\label{Bessel's_Inequality}
+\end{theorem}
+
+\section{Riemann-Lebesgue's Lemma}
+
+\begin{theorem}[Riemann-Lebesgue's Lemma]
+	If $f(x)$ is piecewise continuous on $[-L,L]$, then
+	\begin{equation*}
+		\lim\limits_{n \to \infty} a_n = \lim\limits_{n \to \infty} b_n = 0
+	\end{equation*}
+	\label{Riemann-Lebesgue's_Lemma}
+\end{theorem}
+
+\begin{proof}
+	By \nameref{Bessel's_Inequality},
+	\begin{align*}
+		\frac{1}{2} {a_0}^2 + \sum\limits_{n = 1}^{\infty} {a_n}^2 + {b_n}^2 &\le \int\limits_{-L}^{L} {f(x)}^2 \dif x\\
+		\therefore \frac{1}{2} {a_0}^2 + \sum\limits_{n = 1}^{\infty} {a_n}^2 + {b_n}^2 &< \infty
+		\marginnote
+		{
+			As the function is piecewise continuous in $[-L,L]$, its integral from $-L$ to $L$ is finite.
+		}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} {a_n}^2 &\le \lim\limits_{n \to \infty} {a_n}^2 + {b_n}^2\\
+		\therefore \lim\limits_{n \to \infty} &\le 0
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} a_n &= 0
+	\end{align*}
+	Similarly,
+	\begin{align*}
+		\lim\limits_{n \to \infty} b_n &= 0
+	\end{align*}
+\end{proof}
+
+\begin{question}
+	If $f(x)$ is piecewise continuous on $[-\pi,\pi]$, show that
+	\begin{align*}
+		\lim\limits_{n \to \infty} \int\limits_{-\pi}^{\pi} f(x) \sin\left( \left( n + \frac{1}{2} \right) x \right) \dif x &= 0
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\sin\left( \left( n + \frac{1}{2} \right) x \right) &= \sin(n x) \cos\left( \frac{1}{2} x \right) + \cos(n x) \sin\left( \frac{1}{2} x \right)
+	\end{align*}
+	Therefore, the limit is
+	\begin{align*}
+		0 &= \quad \lim\limits_{n \to \infty} \int\limits_{-\pi}^{\pi} f(x) \cos\left( \frac{1}{2} x \right) \sin(n x) \dif x\\
+		&\quad + \lim\limits_{n \to \infty} \int\limits_{-\pi}^{\pi} f(x) \sin\left( \frac{1}{2} x \right) \cos(n x) \dif x
+	\end{align*}
+	Let
+	\begin{align*}
+		g_1 &= f(x) \cos\left( \frac{1}{2} x \right)\\
+		g_2 &= f(x) \sin\left( \frac{1}{2} x \right)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} \left( \pi b_n(g_1) + \pi a_n(g_2) \right) &= 0
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} \int\limits_{-\pi}^{\pi} f(x) \sin\left( \left( n + \frac{1}{2} \right) x \right) \dif x &= 0
+	\end{align*}
+\end{solution}
+
+\section{Dirichlet's Kernel}
+
+\begin{definition}[Dirichlet kernel]
+	\begin{align*}
+		D_m(t) &= \frac{1}{2} \sum\limits_{n = 1}^{m} \cos(n t)
+	\end{align*}
+	is called the Dirichlet kernel of order $m$.
+\end{definition}
+
+\begin{theorem}[Second representation of Dirichlet's kernel]
+	Let $m \in \mathbb{N}$.\\
+	Then, for $t \neq 2 \pi k$, where $k \in \mathbb{Z}$,
+	\begin{align*}
+		D_m(t) &= \frac{1}{2} + \cos(t) + \cos(2 t) + \dots + \cos(m t)\\
+		&= \frac{\sin\left( \left( m + \frac{1}{2} \right) t \right)}{2 \sin\left( \frac{1}{2} t \right)}
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}
+	Let
+	\begin{align*}
+		S_m(f,x) &= \frac{1}{2} a_0 + \sum\limits_{n = 1}^{m} a_n \cos(n x) + b_n \sin(n x)
+	\end{align*}
+	Then,
+	\begin{align*}
+		S_m(f,x) &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(x + t) \left( \frac{1}{2} \sum\limits_{n = 1}^{m} \cos(n t) \right) \dif t
+	\end{align*}
+\end{theorem}
+
+\begin{proof}
+	\begin{align*}
+		S_m(f,x) &= \frac{1}{2} a_0 + \sum\limits_{n = 1}^{m} a_n \cos(n x) + b_n \sin(n x)\\
+		&= \quad \frac{1}{2} \underbrace{\left( \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(s) \dif s \right)}_{a_0}\\
+		&\quad + \sum\limits_{n = 1}^{m} \underbrace{\left( \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(s) \cos(n s) \dif s \right)}_{a_n} \cos(n x)\\
+		&\quad + \sum\limits_{n = 1}^{m} \underbrace{\left( \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(s) \sin(n s) \dif s \right)}_{b_n} \sin(n x)\\
+		&= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(s) \left( \frac{1}{2} + \sum\limits_{n = 1}^{m} \cos(n s) \cos(n x) + \sin(n s) \sin (n x) \right) \dif s\\
+		&= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(s) \left( \frac{1}{2} + \sum\limits_{n = 1}^{m} \cos\left( n (s - x) \right) \right) \dif s
+	\end{align*}
+	Let
+	\begin{align*}
+		t &= s - x\\
+		\therefore \dif t &= \dif s
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		S_m(f,x) &= \frac{1}{\pi} \int\limits_{-\pi - x}^{\pi - x} f(t + x) \left( \frac{1}{2} + \sum\limits_{n = 1}^{m} \cos(n t) \right) \dif t\\
+		\marginnote
+		{
+			As the function is $2 \pi$-periodic, the limits can be changed from $-\pi - x$ and $\pi - x$ to $-\pi$ and $\pi$.
+		}
+		&= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(t + x) D_m(t) \dif t\\
+		&= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(t + x) D_m(-t) \dif t\\
+		&= \frac{1}{\pi} \left( f(t) \ast D_m(t) \right)
+	\end{align*}
+\end{proof}
+
+\begin{theorem}[Dirichlet Theorem]
+	Let $f : [-L,L] \to \mathbb{R}$ be a piecewise continuously differentiable function.\\
+	Then, $\forall x \in (-L,L)$,
+	\begin{align*}
+		\frac{1}{2} a_0 + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x) &= \frac{f(x^-) + f(x^+)}{2}
+	\end{align*}
+	and for $x = \pi$ or $x = -\pi$,
+	\begin{align*}
+		\frac{1}{2} a_0 + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x) &= \frac{f(L^-) + f(-L^+)}{2}
+	\end{align*}
+	\label{Dirichlet_Theorem}
 \end{theorem}
 
 \end{document}
