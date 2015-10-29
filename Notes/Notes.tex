@@ -471,14 +471,18 @@ Therefore, substituting in the Fourier series,
 \end{proof}
 
 \begin{theorem}[Dirichlet Theorem]
-	Let $f : [-L,L] \to \mathbb{R}$ be a piecewise continuously differentiable function.\\
-	Then, $\forall x \in (-L,L)$,
+	\marginnote
+	{
+		This theorem is also valid for $[-L,L]$.
+	}
+	Let $f : [-\pi,\pi] \to \mathbb{R}$ be a piecewise continuously differentiable function.\\
+	Then, $\forall x \in (-\pi,\pi)$,
 	\begin{align*}
 		\frac{1}{2} a_0 + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x) &= \frac{f(x^-) + f(x^+)}{2}
 	\end{align*}
 	and for $x = \pi$ or $x = -\pi$,
 	\begin{align*}
-		\frac{1}{2} a_0 + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x) &= \frac{f(L^-) + f(-L^+)}{2}
+		\frac{1}{2} a_0 + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x) &= \frac{f(\pi^-) + f(-\pi^+)}{2}
 	\end{align*}
 	\label{Dirichlet_Theorem}
 \end{theorem}
