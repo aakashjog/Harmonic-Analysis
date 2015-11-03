@@ -230,7 +230,9 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 
 \begin{definition}[Dirichlet kernel]
 	\begin{align*}
-		D_m(t) & = \frac{1}{2} \sum\limits_{n = 1}^{m} \cos(n t)
+		D_m(t) & = \frac{1}{2} \sum\limits_{n = -m}^{m} e^{-i n t} \\
+                       & = \frac{1}{2} + \sum\limits_{n = 1}^{m} \cos(n t) \\
+                       & = \frac{\sin\left( \left( n + \frac{1}{2} \right) t \right)}{2 \sin \frac{t}{2}}
 	\end{align*}
 	is called the Dirichlet kernel of order $m$.
 \end{definition}
@@ -336,6 +338,93 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
                                                               & = \frac{\pi}{2}
 			\end{align*}
 	\end{enumerate}
+\end{solution}
+
+\recitation
+
+\begin{theorem}
+	If $f$ is a piecewise continuous and periodic function with period of $2 \pi$, then
+	\begin{align*}
+		S_m(x) & = \frac{a_0}{2} + \sum\limits_{n = 1}^{m} \left( a_n \cos(n x) + b_n \sin(n x) \right) \\
+                       & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(x + t) D_m(t) \dif t
+	\end{align*}
+\end{theorem}
+
+\begin{question}
+	Calculate the limit
+	\begin{align*}
+		L & = \lim\limits_{n \to \infty} \int\limits_{-n}^{n} \sin\left( \frac{2 n + 1}{2} t \right) \frac{\cos^2\left( \frac{\pi}{4} + t \right) + \pi^2}{\sin\left( \frac{t}{2} \right)} \dif t
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		L & = \lim\limits_{n \to \infty} \int\limits_{-n}^{n} \sin\left( \frac{2 n + 1}{2} t \right) \frac{\cos^2\left( \frac{\pi}{4} + t \right) + \pi^2}{\sin\left( \frac{t}{2} \right)} \dif t                      \\
+                  & = 2 \lim\limits_{n \to \infty} \int\limits_{-\pi}^{\pi} \left( \cos^2\left( \frac{\pi}{4} + t \right) + \pi^2 \right) \frac{\sin\left( n + \frac{1}{2} t \right)}{2 \sin\left( \frac{t}{2} \right)} \dif t \\
+                  & = 2 \lim\limits_{n \to \infty} \int\limits_{-\pi}^{\pi} \left( \cos^2\left( \frac{\pi}{4} + t \right) + \pi^2 \right) D_n(t) \dif t
+	\end{align*}
+	Let
+	\begin{align*}
+		f(x) & = \cos^2 x + \pi^2
+	\end{align*}
+	Let $S_n$ be the partial sum of the Fourier series.\\
+	Therefore,
+	\begin{align*}
+		S_n & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} D_n(t) \left( \cos^2(x + t) + \pi^2 \right) \dif t
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		L & = 2 \pi \lim\limits_{n \to \infty} \frac{1}{\pi} \int\limits_{-\pi}^{\pi} \left( \cos^2\left( \frac{\pi}{4} + t \right) + \pi^2 \right) D_n(t) \dif t \\
+                  & = 2 \pi \lim\limits_{n \to \infty} S_n\left( \frac{\pi}{4} \right)                                                                                    \\
+                  & = 2 \pi \frac{f\left( {\frac{\pi}{4}}^+ \right) + f\left( {\frac{\pi}{4}}^- \right)}{2}                                                               \\
+                  & = 2 \pi f\left( \frac{\pi}{4} \right)                                                                                                                 \\
+                  & = 2 \pi \left( \cos^2\left( \frac{\pi}{4} \right) + \pi^2 \right)                                                                                     \\
+                  & = \pi + 2 \pi^3
+	\end{align*}
+\end{solution}
+
+\section{Fourier Series in a General Interval}
+
+\begin{definition}
+	Let $f$ be a piecewise continuous function defined on $[a,b]$.
+	The Fourier series over $[a,b]$ is defined as
+	\begin{align*}
+		f(x) & \approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} \left( a_n \cos\left( \frac{2 \pi n x}{b - a} \right) + b_n \sin\left( \frac{2 \pi n x}{b - a} \right) \right) \\
+                     & \approx \sum\limits_{-\infty}^{\infty} c_n e^{\frac{2 \pi i n x}{b - a}}
+	\end{align*}
+	where
+	\begin{align*}
+		a_0 & = \frac{1}{b - a} \int\limits_{a}^{b} f(x) \dif x                              \\
+		a_n & = \frac{2}{b - a} \int\limits_{a}^{b} f(x) \cos \frac{2 \pi n x}{b - a} \dif x \\
+		b_n & = \frac{2}{b - a} \int\limits_{a}^{b} f(x) \sin \frac{2 \pi n x}{b - a} \dif x \\
+		c_n & = \frac{1}{b - a} \int\limits_{a}^{b} f(x) e^{\frac{2 \pi i n x}{b - a}} \dif x
+	\end{align*}
+\end{definition}
+
+\begin{question}
+	Develop the Fourier series for $\mathrm{sign}(x)$ over $[0,\pi]$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		a_0 & = \frac{2}{\pi} \int\limits_{0}^{\pi} \mathrm{sign}(x) \dif x \\
+                    & = 2
+	\end{align*}
+	\begin{align*}
+		a_n & = \frac{2}{\pi} \int\limits_{0}^{\pi} \mathrm{sign}(x) \cos\left( \frac{2 \pi n x}{\pi} \right) \dif x \\
+                    & = \frac{2}{\pi} \int\limits_{0}^{\pi} \cos(2 n x) \dif x                                               \\
+                    & = 0
+	\end{align*}
+	\begin{align*}
+		b_n & = \frac{2}{\pi} \int\limits_{0}^{\pi} \mathrm{sign}(x) \sin\left( \frac{2 \pi n x}{\pi} \right) \dif x \\
+                    & = \frac{2}{\pi} \int\limits_{0}^{\pi} \sin(2 n x) \dif x                                               \\
+                    & = 0
+	\end{align*}
+	Therefore, over $[0,\pi]$,
+	\begin{align*}
+		\mathrm{sign}(x) & = \frac{2}{2} + \sum\limits_{n = 1}^{\infty} 0 \\
+                                 & = 1
+	\end{align*}
 \end{solution}
 
 \end{document}
