@@ -487,4 +487,97 @@ Therefore, substituting in the Fourier series,
 	\label{Dirichlet_Theorem}
 \end{theorem}
 
+\begin{question}
+	Prove that $\forall x \in [0,1]$,
+	\begin{align*}
+		x (\pi - x) &= \frac{\pi^2}{6} - \sum\limits_{n = 1}^{\infty} \frac{1}{n^2} \cos(2 n x)
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	Let the function be extended naturally to $[0,\pi]$.
+	Hence, let the function be extended evenly to $[-\pi,\pi]$.\\
+	Therefore as the function is even, the Fourier series of the function is
+	\begin{align*}
+		x (\pi - x) &\approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} a_n \cos(n x)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		a_0 &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(x) \dif x\\
+		&= \frac{1}{\pi} \int\limits_{0}^{\pi} x (\pi - x) \dif x\\
+		&= \frac{\pi^2}{3}
+	\end{align*}
+	\begin{align*}
+		a_n &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(x) \cos(n x) \dif x\\
+		&= \frac{2}{\pi} \int\limits_{0}^{\pi} x (\pi - x) \cos(n x) \dif x\\
+		&= \frac{2}{\pi} \int\limits_{0}^{\pi} \left( x \pi - x^2 \right) \cos(n x) \dif x\\
+		&= \frac{2}{\pi} \left. \left( \left( x \pi - x^2 \right) \int \cos(n x) \dif x - \int (\pi - 2 x) \int \cos(n x) \dif x \dif x \right) \right|_{0}^{\pi}\\
+		&= \frac{2}{\pi} \left. \left( \left( x \pi - x^2 \right) \cancelto{0}{\frac{\sin(n x)}{n}} - \int (\pi - 2 x) \frac{\sin(n x)}{n} \dif x \right) \right|_{0}^{\pi}
+		\marginnote
+		{
+			The integral of $\cos x$ from $0$ to $\pi$ is zero, i.e. if the limits are $\pi$ and $0$, the function $\sin x$ is zero.
+		}\\
+		&= \frac{2}{\pi} \left. \left( - \int (\pi - 2 x) \frac{\sin(n x)}{n} \dif x \right) \right|_{0}^{\pi}\\
+		&= \frac{2}{\pi} \left. \left( (\pi - 2 x) \frac{\cos(n x)}{n^2} + \int \frac{2 \cos(n x)}{n^2} \dif x \right) \right|_{0}^{\pi}
+		\marginnote
+		{
+			The integral of $\cos x$ from $0$ to $\pi$ is zero.
+		}\\
+		&= \frac{2}{\pi} \left. (\pi - 2 x) \frac{\cos(n x)}{n^2} \right|_{0}^{\pi}\\
+		&= \frac{2}{n^2} \left( (-1)^{n + 1} - 1 \right)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		a_n &=
+			\begin{cases}
+				-\frac{4}{n^2} & ;\quad n = 2 k     \\
+				0              & ;\quad n = 2 k + 1 \\
+			\end{cases}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		x (\pi - x) &= \frac{\pi^2}{6} - \sum\limits_{k = 1}^{\infty} \frac{1}{n^2} \cos(2 \pi k)
+	\end{align*}
+\end{solution}
+
+\begin{theorem}
+	Let $f[-\pi,\pi] \to \mathbb{R}$ be continuous and $f(-\pi) = f(\pi)$.
+	Let $f'(x)$ be piecewise continuous.
+	Then the Fourier series converges absolutely to some limit and uniformly to $f(x)$.
+\end{theorem}
+
+\section{Relation between Fourier Coefficients of $f(x)$ and $f'(x)$}
+
+\begin{theorem}
+	Let the Fourier coefficients of $f(x)$ be $a_0$, $a_n$, and $b_n$.
+	Then, the Fourier coefficients of $f'(x)$ are
+	\begin{align*}
+		\alpha_0 &= 0\\
+		\alpha_n &= n b_n\\
+		\beta_n &= -n a_n
+	\end{align*}
+\end{theorem}
+
+\begin{proof}
+	Assuming $f'(x)$ is integrable,
+	\begin{align*}
+		f'(x) &\approx \frac{1}{2} \alpha_0 + \sum\limits_{n = 1}^{\infty} \alpha_n \cos(n x) + \beta_n \sin(n x)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\alpha_0 &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f'(x) \dif x\\
+		&= \frac{f(\pi) - f(-\pi)}{\pi}\\
+		&= 0
+	\end{align*}
+	\begin{align*}
+		\alpha_n &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f'(x) \cos(n x) \dif x\\
+		&= \frac{1}{\pi} \left. f(x) \cos(n x) \right|_{-\pi}^{\pi} + \frac{n}{\pi} \int\limits_{-\pi}^{\pi} f(x) \sin(n x) \dif x
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\alpha_n &= n b_n\\
+		\beta_n &= -n a_n
+	\end{align*}
+\end{proof}
+
 \end{document}
