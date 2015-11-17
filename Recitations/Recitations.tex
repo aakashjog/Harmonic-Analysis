@@ -493,4 +493,57 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 	\end{align*}
 \end{solution}
 
+\recitation
+
+\begin{question}
+	Use
+	\begin{align*}
+		|x| & \approx \frac{\pi}{2} + \frac{4}{\pi} \sum\limits_{n = 1}^{\infty} \frac{(-1)^n}{(2 n - 1)^2} \cos\left( (2 n - 1) x \right)
+	\end{align*}
+	to compute the Fourier series of
+	\begin{align*}
+		\mathrm{sign}(x) &=
+			\begin{cases}
+				1  & ;\quad x \ge 0 \\
+				-1 & ;\quad x < 0   \\
+			\end{cases}
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	As $|x|$ is continuous, piecewise differentiable, and $|-\pi| = |\pi|$, its Fourier series converges uniformly.
+	Hence, the Fourier series can be differentiated term by term.\\
+	Therefore,
+	\begin{align*}
+		|x|' & = \mathrm{sign}(x)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\mathrm{sign}(x) & \approx \left( \frac{\pi}{2} + \frac{4}{\pi} \sum\limits_{n = 1}^{\infty} \frac{(-1)^n}{(2 n - 1)^2} \cos\left( (2 n - 1) x \right) \right)' \\
+                                 & \approx \frac{4}{\pi} \sum\limits_{n = 1}^{\infty} \frac{(-1)^{n + 1}}{(2 n - 1)} \sin\left( (2 n - 1) x \right)
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	$f$ is given to be continuous, piecewise differentiable, and periodic with period $2 \pi$.
+	Also
+	\begin{align*}
+		f(x) & \approx \frac{a_0}{2} \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)
+	\end{align*}
+	Determine whether the following are true or false.
+	\begin{equation*}
+		\lim\limits_{n \to \infty} n a_n = \lim\limits_{n \to \infty} n b_n = 0
+	\end{equation*}
+	True or false.
+\end{question}
+
+\begin{solution}
+	$n a_n$ and $n b_n$ are the Fourier coefficients for $f'(x)$.
+	Therefore, as $f$ is piecewise differentiable, and by \nameref{Riemann-Lebesgue's_Lemma},
+	\begin{equation*}
+		\lim\limits_{n \to \infty} n a_n = \lim\limits_{n \to \infty} n b_n = 0
+	\end{equation*}
+	Hence, the statement is true.
+\end{solution}
+
 \end{document}
