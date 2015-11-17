@@ -1,0 +1,341 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+%\usepackage[top = 2cm, bottom = 1cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{exsheets, tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage[free-standing-units, space-before-unit]{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections, decorations.markings}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate,enumitem} %numbered lists
+\usepackage{float} %inserting floats
+\usepackage{circuitikz}[american voltages, american currents] %circuit diagrams
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[1].}
+
+\SetupExSheets{solution/print = true}
+
+%opening
+\title{Harmonic Analysis : Assignment 3}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{17}{11}{2015}}
+
+\begin{document}
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\begin{question}
+	Let $m \in \mathbb{Z}$ and $D_N(t)$ be the Dirichlet kernel.
+	Calculate
+	\begin{enumerate}
+		\item $\displaystyle \int\limits_{-\pi}^{\pi} D_N(t) \sin(100 t) \dif t$
+		\item $\displaystyle \int\limits_{-\pi}^{\pi} D_N(t) \cos(100 t) \dif t$
+		\item $\displaystyle \int\limits_{-\pi}^{\pi} \left( D_N(t) \right)^2 \dif t$ for $N = 100$.
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				\int\limits_{-\pi}^{\pi} D_N(t) \sin(100 t) \dif t &= \int\limits_{-\pi}^{\pi} \left( 1 + 2 \sum\limits_{n = 1}^{N} \cos(n t) \right) \sin(100 t) \dif t\\
+			\end{align*}
+			Therefore, as $D_N(t)$ is even, and $\sin(100 t)$ is odd, the function is odd.\\
+			Hence,
+			\begin{align*}
+				\int\limits_{-\pi}^{\pi} D_N(t) \sin(100 t) \dif t &= 0
+			\end{align*}
+		\item
+			\begin{align*}
+				\int\limits_{-\pi}^{\pi} D_N(t) \cos(100 t) \dif t &= \int\limits_{-\pi}^{\pi} \left( 1 + 2 \sum\limits_{n = 1}^{N} \cos(n t) \right) \cos(100 t) \dif t\\
+				&= \int\limits_{-\pi}^{\pi} \cos(100 t) + 2 \cos(100 t) \sum\limits_{n = 1}^{m} \cos(n t) \dif t\\
+				&= \quad \int\limits_{-\pi}^{\pi} \cos(100 t) \dif t\\
+				&\quad + \int\limits_{-\pi}^{\pi} 2 \cos(100 t) \sum\limits_{n = 1}^{99} \cos(n t) \dif t\\
+				&\quad + \int\limits_{-\pi}^{\pi} 2 \cos(100 t) \cos(100 t) \dif t\\
+				&\quad + \int\limits_{-\pi}^{\pi} 2 \cos(100 t) \sum\limits_{n = 101}^{N} \cos(n t) \dif t\\
+				&= 0 + 0 + 2 \pi + 0\\
+				&= 2 \pi
+			\end{align*}
+		\item
+			\begin{align*}
+				\int\limits_{-\pi}^{\pi} \left( D_{100}(t) \right)^2 \dif t &= \int\limits_{-\pi}^{\pi} \left( 1 + 2 \sum\limits_{n = 1}^{100} \cos(n t) \right)^2 \dif t\\
+				&= \int\limits_{-\pi}^{\pi} 1 + 4 \sum\limits_{n = 1}^{100} \cos(n t) + 4 \left( \sum\limits_{n = 1}^{100} \cos(n t) \right)^2 \dif x\\
+				&= 402 \pi
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Decide whether the series of function $f_n(x) = f(n x)$, where
+	\begin{align*}
+		f(x) &=
+			\begin{cases}
+				1 - x^2 &;\quad |x| \le 1\\
+				0 &;\quad |x| > 1\\
+			\end{cases}
+	\end{align*}
+	converges to the zero function point wise, mean squarely, or uniformly.
+	Explain.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		f_n(0) &= f(0 n)\\
+		&= f(0)\\
+		&= 1\\
+		&\neq 0
+	\end{align*}
+	Therefore, for $x = 0$, the series of functions does not converge point wise to the zero function.
+	Hence, it does not converge uniformly either.
+\end{solution}
+
+\begin{question}
+	Let
+	\begin{align*}
+		f(x) &=
+			\begin{cases}
+				A x + B &;\quad -\pi \le x < 0\\
+				\cos x &;\quad 0 \le x \le \pi\\
+			\end{cases}
+	\end{align*}
+	For which values of $A$ and $B$ does the Fourier series of $f$ uniformly converge in $[-\pi,\pi]$?
+\end{question}
+
+\begin{solution}
+	For $f$ to be uniformly convergent, $f$ must be continuous.\\
+	Therefore,
+	\begin{align*}
+		f(0^-) &= f(0^+)\\
+		\therefore B &= \cos(0)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		B &= 1
+	\end{align*}
+	Also, for $f$ to be uniformly convergent, $f(-\pi) = f(\pi)$.\\
+	Therefore,
+	\begin{align*}
+		-\pi A + B &= \cos \pi
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		A &= \frac{2}{\pi}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Calculate the integral $\displaystyle \int\limits_{-\pi}^{\pi} \left| \sum\limits_{n = 1}^{\infty} \frac{1}{2^n} e^{i n x} \right|^2 \dif x$.
+\end{question}
+
+\begin{solution}
+	Let
+	\begin{align*}
+		\int\limits_{-\pi}^{\pi} \left| \sum\limits_{n = 1}^{\infty} \frac{1}{2^n} e^{i n x} \right|^2 \dif x &= \int\limits_{-\pi}^{\pi} \left| \sum\limits_{n = 1}^{\infty} \frac{\cos(n x) + i \sin(n x)}{2^n} \right|^2 \dif x\\
+		&= \int\limits_{-\pi}^{\pi} \left( \sqrt{\left( \sum\limits_{n = 1}^{\infty} \frac{\cos(n x)}{2^n} \right)^2 + \left( \sum\limits_{n = 1}^{\infty} \frac{\sin(n x)}{n^2} \right)^2} \right)^2 \dif x\\
+		&= \int\limits_{-\pi}^{\pi} \left( \frac{1}{4} + \frac{1}{4^2} + \dots \right) \dif x\\
+		&= \int\limits_{-\pi}^{\pi} \frac{\frac{1}{4}}{1 - \frac{1}{4}} \dif x\\
+		&= \frac{2 \pi}{3}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Let $f$ be a periodic piecewise continuous function with period $2 \pi$, and Fourier series
+	\begin{align*}
+		f(x) &\approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} \left( a_n \cos(n x) + b_n \sin(n x) \right)
+	\end{align*}
+	on $[-\pi,\pi]$.
+	Express $\displaystyle \frac{1}{\pi} \int\limits_{-\pi}^{\pi} \left| f(x + \pi) - f(x) \right|^2 \dif x$ using $a_n$, $b_n$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		f(x) &\approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)\\
+		\therefore f(x + \pi) &\approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} (-1)^n \left( a_n \cos(n x) + b_n \sin(n x) \right)
+	\end{align*}
+	Therefore, by Percival's identity,
+	\begin{align*}
+		\frac{1}{\pi} \int\limits_{-\pi}^{\pi} \left| f(x + \pi) - f(x) \right|^2 \dif x &= 0 + \sum\limits_{n = 1}^{\infty} \left( (-1)^n - 1 \right)^2 \left( {a_n}^2 + {b_n}^2 \right)\\
+		&= \sum\limits_{n = 1}^{\infty} 2 \left( 1 - (-1)^n \right) \left( {a_n}^2 + {b_n}^2 \right)\\
+		&= 4 \sum\limits_{n = 1}^{\infty} \left( {a_{2 n - 1}}^2 + {b_{2 n - 1}}^2 \right)
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	For all natural $n$, we define
+	\begin{align*}
+		f_n(x) &= 1 + \sum\limits_{k = 1}^{n} \left( \cos(k x) - \sin(k x) \right)
+	\end{align*}
+	Calculate the integral $\displaystyle \int\limits_{-\pi}^{\pi} \left| f_n(x) \right|^2 \dif x$
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		f_n(x) &= 1 + \sum\limits_{k = 1}^{n} \left( \cos(k x) - \sin(k x) \right)
+	\end{align*}
+	Therefore, by Percival's identity,
+	\begin{align*}
+		\int\limits_{-\pi}^{\pi} \left| f_n(x) \right|^2 \dif x &= \pi \left( \frac{2^2}{2} + \sum\limits_{n = 1}^{\infty} 1^2 + (-1)^2 \right)\\
+		&= 2 \pi (n + 1)
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	\begin{enumerate}
+		\item Develop the Fourier series of the function $f(x) = x^2$ and $[0,2 \pi]$.
+		\item Compare the above series and the series of $f$ on $[-\pi,\pi]$ and explain the difference.
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				f(x) &\approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				a_0 &= \frac{2}{2 \pi} \int\limits_{0}^{2 \pi} x^2 \dif x\\
+				&= \frac{8 \pi^2}{3}
+			\end{align*}
+			\begin{align*}
+				a_n &= \frac{2}{2 \pi} \int\limits_{0}^{2 \pi} x^2 \cos\left( \frac{2 \pi n x}{2 \pi} \right) \dif x\\
+				&= \frac{4}{n^2}
+			\end{align*}
+			\begin{align*}
+				b_n &= \frac{2}{2 \pi} \int\limits_{0}^{2 \pi} x^2 \sin\left( \frac{2 \pi n x}{2 \pi} \right) \dif x\\
+				&= -\frac{4 \pi}{n}
+			\end{align*}
+			Therefore, on $[0,2 \pi]$,
+			\begin{align*}
+				x^2 &\approx \frac{4 \pi^2}{3} + 4 \sum\limits_{n = 1}^{\infty} \frac{\cos(n x)}{n^2} - \frac{\pi \sin(n x)}{n}
+			\end{align*}
+		\item
+			There is a difference between the Fourier seies on $[-\pi,\pi]$ and $[0,2 \pi]$, as the extensions are different for the two intervals.
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Develop the Fourier series of
+	\begin{align*}
+		f(x) &=
+			\begin{cases}
+				\frac{x}{2} &;\quad 0 < x < 2\\
+				1 &;\quad 2 < x < 3\\
+			\end{cases}
+	\end{align*}
+	on $[0,3]$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		f(x) &\approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		a_0 &= \frac{2}{3} \int\limits_{0}^{3} f(x) \dif x\\
+		&= \frac{2}{3} \int\limits_{0}^{2} \frac{x}{2} \dif x + \frac{2}{3} \int\limits_{2}^{3} \dif x\\
+		&= \frac{4}{3}
+	\end{align*}
+	\begin{align*}
+		a_n &= \frac{2}{3} \int\limits_{0}^{3} f(x) \cos\left( \frac{2 \pi n x}{3} \right) \dif x\\
+		&= \frac{2}{3} \int\limits_{0}^{2} \frac{x}{2} \cos\left( \frac{2 \pi n x}{3} \right) \dif x + \frac{2}{3} \int\limits_{2}^{3} \cos\left( \frac{2 \pi n x}{3} \right) \dif x\\
+		&= \frac{3}{2 \pi^2 n^2} \sin^2\left( \frac{2 \pi n}{3} \right)
+	\end{align*}
+	\begin{align*}
+		b_n &= \frac{2}{3} \int\limits_{0}^{3} f(x) \sin\left( \frac{2 \pi n x}{3} \right) \dif x\\
+		&= \frac{2}{3} \int\limits_{0}^{2} \frac{x}{2} \sin\left( \frac{2 \pi n x}{3} \right) \dif x + \frac{2}{3} \int\limits_{2}^{3} \sin\left( \frac{2 \pi n x}{3} \right) \dif x\\
+		&= \frac{3}{4 \pi^2 n^2} \sin\left( \frac{4 \pi n}{3} \right) - \frac{1}{n \pi}
+	\end{align*}
+	Therefore, on $[0,3]$,
+	\begin{align*}
+		f(x) &\approx \quad \frac{2}{3} + \sum\limits_{n = 1}^{\infty} \frac{3}{2 \pi^2 n^2} \sin^2\left( \frac{2 \pi n}{3} \right) \cos\left( \frac{2 \pi n x}{3} \right)\\
+		&\quad - \sum\limits_{n = 1}^{\infty} \left( \frac{3}{4 \pi^2 n^2} \sin\left( \frac{4 \pi n}{3} - \frac{1}{n \pi} \right) \sin\left( \frac{2 \pi n x}{3} \right) \right)
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Develop the Fourier series of $e^x$ on $[0,1]$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		f(x) &\approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		a_0 &= \frac{2}{1} \int\limits_{0}^{1} e^x \dif x\\
+		&= 2 (e - 1)
+	\end{align*}
+	\begin{align*}
+		a_n &= \frac{2}{1} \int\limits_{0}^{1} e^x \cos(2 \pi n x) \dif x\\
+		&= \frac{2 (e - 1)}{4 \pi^2 n^2 + 1}
+	\end{align*}
+	\begin{align*}
+		b_n &= \frac{2}{1} \int\limits_{0}^{1} e^x \sin(2 \pi n x) \dif x\\
+		&= -\frac{4 \pi n (e - 1)}{4 \pi^2 n^2 + 1}
+	\end{align*}
+	Therefore, on $[0,1]$,
+	\begin{align*}
+		f(x) &\approx (e - 1) + 2 (e - 1) \sum\limits_{n = 1}^{\infty} \frac{\cos(2 \pi n x) - 2 \pi n \sin(2 \pi n x)}{4 \pi^2 n^2 + 1}
+	\end{align*}
+\end{solution}
+
+\end{document}
