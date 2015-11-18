@@ -41,6 +41,7 @@
 \usepackage{algpseudocode} %algorithms
 \usepackage{algorithm} %algorithms
 \usepackage{environ}
+\usepackage{todonotes}
 
 \renewcommand{\marginfont}{\scriptsize \color{red}}
 
@@ -579,5 +580,60 @@ Therefore, substituting in the Fourier series,
 		\beta_n &= -n a_n
 	\end{align*}
 \end{proof}
+
+\begin{theorem}
+	Let the complex Fourier coefficient of $f(x)$ be $c_n$.
+	Then, the complex Fourier coefficient of $f'(x)$ is
+	\begin{align*}
+		\gamma_n &= i n c_n
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}
+	\marginnote
+	{
+		On a general interval, this theorem translates to term-by-term differentiation, i.e., the order of summation and differentiation can be changed.
+	}
+	Let $f(x) : [-\pi,\pi] \to \mathbb{R}$ be a continuous function such that $f(-\pi) = f(\pi)$, and let $f'(x)$ be piecewise continuous.\\
+	If
+	\begin{align*}
+		f(x) &= \frac{1}{2} a_0 + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)\\
+		&= \int\limits_{n = \infty}^{\infty} c_n e^{i n x}
+	\end{align*}
+	then,
+	\begin{align*}
+		f'(x) &\approx \sum\limits_{n = 1}^{\infty} n b_n \cos(n x) - n a_n \sin(n x)\\
+		&= \sum\limits_{n = -\infty}^{\infty} i n c_n e^{i n x}
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}
+	\marginnote
+	{
+		This theorem also holds for a general interval $[-L,L]$.
+	}
+	Let $f : [-\pi,\pi] \to \mathbb{R}$ be a continuous function that maintains $f(-\pi) = f(\pi)$ and let $f'(x)$ be piecewise continuous.
+	Then, $S_m(f,x)$ converges uniformly to $f(x)$.
+\end{theorem}
+
+\begin{definition}[Inner product]
+	Let $\overline{x}$ and $\overline{y}$ be vectors.
+	Their inner product is defined to be
+	\begin{align*}
+		\left\langle \overline{x} , \overline{y} \right\rangle &= \sum\limits_{i = 1}^{\infty} x_i y_i
+	\end{align*}
+\end{definition}
+
+\begin{theorem}
+	\begin{align*}
+		\left| \left\langle \overline{x} , \overline{y} \right\rangle \right| &\le \sqrt{\left\langle \overline{x} , \overline{x} \right\rangle} \sqrt{\left\langle \overline{y} , \overline{y} \right\rangle}
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}
+	Let $f(x)$ be continuous on $[-\pi,\pi]$ with piecewise continuous $f'(x)$.
+	Let $S_m(f,x)$ converge uniformly to $f(x)$.
+	Then, the Fourier series is term-by-term differentiable.
+\end{theorem}
 
 \end{document}
