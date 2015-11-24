@@ -1,0 +1,336 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+%\usepackage[top = 2cm, bottom = 1cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{exsheets, tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage[free-standing-units, space-before-unit]{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections, decorations.markings}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate,enumitem} %numbered lists
+\usepackage{float} %inserting floats
+\usepackage{circuitikz}[american voltages, american currents] %circuit diagrams
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[1].}
+
+\SetupExSheets{solution/print = true}
+
+%opening
+\title{Harmonic Analysis : Assignment 4}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{24}{11}{2015}}
+
+\begin{document}
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\begin{question}
+	Let
+	\begin{align*}
+		g(x) &=
+			\begin{cases}
+				\cos x & ;\quad -\pi \le x \le 0 \\
+				\sin x & ;\quad 0 < x \le \pi    \\
+			\end{cases}
+	\end{align*}
+	\begin{enumerate}
+		\item
+			Calculate Fourier series of $g$.
+		\item
+			Let us define
+			\begin{align*}
+				h(x) & = \int\limits_{-\pi}^{x} g(t) \dif t + a \sin \frac{x}{2}
+			\end{align*}
+			For which values of $a$, will the Fourier series of $h$ uniformly converge?
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				g(x) &=
+					\begin{cases}
+						\cos x & ;\quad -\pi \le x \le 0 \\
+						\sin x & ;\quad 0 < x \le \pi    \\
+					\end{cases}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				a_0 & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} g(x) \dif x                                                     \\
+                                    & = \frac{1}{\pi} \int\limits_{-\pi}^{0} \cos x \dif x + \frac{1}{\pi} \int\limits_{0}^{\pi} \sin x \dif x \\
+                                    & = \frac{2}{\pi}
+			\end{align*}
+			\begin{align*}
+				a_n &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} g(x) \cos(n x) \dif x\\
+				&= \frac{1}{\pi} \int\limits_{-\pi}^{0} \cos x \cos(n x) \dif x + \frac{1}{\pi} \int\limits_{0}^{\pi} \sin x \cos(n x) \dif x\\
+				&=
+					\begin{cases}
+						\frac{1}{2}                                   & ;\quad n = 1    \\
+						\frac{1 + (-1)^n}{\pi \left( n^2 - 1 \right)} & ;\quad n \neq 1 \\
+					\end{cases}
+			\end{align*}
+			\begin{align*}
+				b_n &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} g(x) \sin(n x) \dif x\\
+				&= \frac{1}{\pi} \int\limits_{-\pi}^{0} \cos x \sin(n x) \dif x + \frac{1}{\pi} \int\limits_{0}^{\pi} \sin x \sin(n x) \dif x\\
+				&=
+					\begin{cases}
+						\frac{1}{2}                                  & ;\quad n = 1    \\
+						-\frac{n \left( 1 + (-1)^n \right)}{n^2 - 1} & ;\quad n \neq 1 \\
+					\end{cases}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				a_{2 n} & = \frac{2}{\pi \left( 1 - 4 n^2 \right)}   \\
+				b_{2 n} & = \frac{4 n}{\pi \left( 1 - 4 n^2 \right)} \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				g(x) & \approx \frac{1}{\pi} + \frac{\sin x + \cos x}{2} + \sum\limits_{n = 1}^{\infty} \left( \frac{2 \cos(2 n x)}{\pi \left( 1 - 4 n^2 \right)} + \frac{4 n \sin(2 n x)}{\pi \left( 1 - 4 n^2 \right)} \right)
+			\end{align*}
+		\item
+			\begin{align*}
+				h(x) &= \int\limits_{-\pi}^{x} g(t) \dif t + a \sin \frac{x}{2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				h(x) &=
+					\begin{cases}
+						\int\limits_{-\pi}^{x} \cos t \dif t + a \sin \frac{x}{2}                                     & ;\quad -\pi \le x \le 0 \\
+						\int\limits_{-\pi}^{0} \cos t \dif t + \int\limits_{0}^{x} \sin t \dif t + a \sin \frac{x}{2} & ;\quad 0 < x \le \pi    \\
+					\end{cases}\\
+				&=
+					\begin{cases}
+						\sin x + a \sin \frac{x}{2}     & ;\quad -\pi \le x \le 0 \\
+						1 - \cos x + a \sin \frac{x}{2} & ;\quad 0 < x \le \pi    \\
+					\end{cases}
+			\end{align*}
+			Therefore, for the Fourier series to converge uniformly, $h(-\pi) = h(\pi)$.\\
+			Therefore,
+			\begin{align*}
+				\sin(-\pi) + a \sin \frac{-\pi}{2} & = 1 - \cos \pi + a \sin \frac{\pi}{2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				a & = 0
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Let $\hat{f}(n)$ represent coefficients.
+	Let $\sum\limits_{n = -\infty}^{\infty} \hat{f}(n) e^{i n x}$ be the Fourier series of $f(x) = |x|$.
+	Prove that the series $\sum\limits_{n = -\infty}^{\infty} n \hat{f}(n) e^{i n x}$ converges for all $x$ on $[-\pi,\pi]$.
+\end{question}
+
+\begin{solution}
+	$f(x)$ is continuous, $f'(x)$ is piecewise continuous, and $f(-\pi) = f(\pi)$.\\
+	Therefore, differentiating term by term,
+	\begin{align*}
+		f'(x) & \approx i \sum\limits_{n = -\infty}^{\infty} n \hat{f}(n) e^{i n x}
+	\end{align*}
+	Therefore, the series $\sum\limits_{n = -\infty}^{\infty} n \hat{f}(n) e^{i n x}$ converges for all $x \in [-\pi,\pi]$.
+\end{solution}
+
+\begin{question}
+	Let
+	\begin{align*}
+		f(x) &=
+			\begin{cases}
+				\sin 2 x & ;\quad -\frac{\pi}{2} < x < \frac{\pi}{2} \\
+				0        & ;\quad \text{otherwise}                   \\
+			\end{cases}
+	\end{align*}
+	\begin{enumerate}
+		\item Find the Fourier series of $f$ and $f'$.
+		\item Where does the Fourier series of $f'$ converge at $x = \pm \frac{\pi}{2}$?
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				f(x) &=
+					\begin{cases}
+						\sin 2 x & ;\quad -\frac{\pi}{2} < x < \frac{\pi}{2} \\
+						0        & ;\quad \text{otherwise}                   \\
+					\end{cases}
+			\end{align*}
+			Therefore, as $f(x)$ is odd, its Fourier series is
+			\begin{align*}
+				f(x) & \approx \sum\limits_{n = 1}^{\infty} b_n \sin(n x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				b_n & = \frac{1}{\pi} \int\limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				b_2         & = \frac{1}{2} \\
+				b_{2 n - 1} & = \frac{(-1)^n}{2 \pi \left( n^2 - n - 1 \right)}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				f(x) & \approx \frac{\sin(2 x)}{2} + \sum\limits_{n = 1}^{\infty} \frac{(-1)^n}{2 \pi \left( n^2 - n - 1 \right)}
+			\end{align*}
+			$f(x)$ is continuous, $f'(x)$ is piecewise continuous, and $f(-\pi) = f(\pi)$.\\
+			Therefore, differentiating term by term,
+			\begin{align*}
+				f'(x) &= \cos(2 x) + \sum\limits_{n = 1}^{\infty} \frac{(-1)^n n \cos(n x)}{2 \pi \left( n^2 - n - 1 \right)}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				f'\left( -\frac{\pi}{2} \right) & = -1 \\
+				f'\left( \frac{\pi}{2} \right)  & = -1
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Using the Fourier series of $f(x) = x^2$, calculate the Fourier series of
+	\begin{align*}
+		g(x) & = x^3 - \pi^2 x
+	\end{align*}
+	Hint: Use integration by terms.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		f(x) & = x^2
+	\end{align*}
+	$f(x)$ is continuous, $f'(x)$ is piecewise continuous, and $f(-\pi) = f(\pi)$.\\
+	Therefore, integrating term by term,
+	\begin{align*}
+		x^2 & \approx \pi^2 x + 12 \sum\limits_{n = 1}^{\infty} \frac{(-1)^n}{n^3} \sin(n x)
+	\end{align*}
+	\begin{align*}
+		x & \approx 2 \sum\limits_{n = 1}^{\infty} \frac{(-1)^{n + 1} \sin(n x)}{n}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		g(x) & = x^3 - \pi^2 x \\
+                     & = 12 \sum\limits_{n = 1}^{\infty} \frac{(-1)^n}{n^3} \sin(n x)
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Let $f$ be a piecewise continuous function with period $2 \pi$.
+	The Fourier series of $f$ is
+	\begin{align*}
+		f & \approx \sum\limits_{-\infty , n \neq 0}^{\infty} \hat{f}(n) e^{i n x}
+	\end{align*}
+	Let
+	\begin{align*}
+		g(x) & = \int\limits_{-\pi}^{\pi} \left( f(t) + f(\pi - t) \right) \dif t
+	\end{align*}
+	Find the Fourier coefficients $\hat{g}(n)$ using $\hat{f}(n)$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		f(t) & \approx \sum\limits_{n = -\infty}^{\infty} \hat{f}(n) e^{i n x}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		f(\pi - t) & \approx \sum\limits_{n = -\infty}^{\infty} \hat{f}(n) (-1)^n e^{-i n x} \\
+                           & \approx \sum\limits_{n = -\infty}^{\infty} \hat{f}(-n) (-1)^{-n} e^{i n x}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		g(x) & = \int\limits_{-\pi}^{x} \left( f(t) + f(\pi - t) \right) \dif t                                                                                                               \\
+                     & \approx \int\limits_{-\pi}^{x} \left( \sum\limits_{n = -\infty}^{\infty} \hat{f}(n) e^{i n t} + \sum\limits_{n = -\infty}^{\infty} \hat{f}(-n) (-1)^n e^{i n t} \right) \dif t \\
+                     & \approx \sum\limits_{n = \infty}^{\infty} \int\limits_{-\pi}^{x} e^{i n t} \left( \hat{f}(n) + (-1)^n \hat{f}(-n) \right) \dif t                                               \\
+                     & = \sum\limits_{n = -\infty}^{\infty} \left. \left( \frac{\hat{f}(n) + (-1)^n \hat{f}(-n)}{i n} \right) \right|_{-\pi}^{x}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\hat{g}(n) & = \frac{\hat{f}(n) + (-1)^n \hat{f}(-n)}{i n}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Let $f$ be the $2 \pi$ periodic function such that
+	\begin{align*}
+		f(x) & = e^x
+	\end{align*}
+	for $x \in [-\pi,\pi]$, and $\sum\limits_{n = -\infty}^{\infty} \hat{f}(n) e^{i n x}$ its Fourier series.
+	So for $|x| < \pi$, we have
+	\begin{align*}
+		e^x & = \sum\limits_{-\infty}^{\infty} \hat{f}(n) e^{i n x}
+	\end{align*}
+	We will formally differentiate both side and get
+	\begin{align*}
+		e^x & = \sum\limits_{-\infty}^{\infty} i n \hat{f}(n) e^{i n x}
+	\end{align*}
+	So we have 
+	\begin{align*}
+		\hat{f}(n)            & = i n \hat{f}(n) \\
+		\therefore \hat{f}(n) & = 0
+	\end{align*}
+	Where was our mistake?
+\end{question}
+
+\begin{solution}
+	As $f(-\pi) \neq f(\pi)$, term by term differentiation is not possible.
+\end{solution}
+
+\end{document}
