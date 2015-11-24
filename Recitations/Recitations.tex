@@ -546,4 +546,51 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 	Hence, the statement is true.
 \end{solution}
 
+\recitation
+
+\begin{theorem}
+	If $f$ is piecewise continuous with Fourier series
+	\begin{align*}
+		f(x) & \approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)
+	\end{align*}
+	the, for all $x \in [-\pi,\pi]$,
+	\begin{align*}
+		\int\limits_{0}^{x} f(t) \dif t & = \frac{a_0}{2} x + \sum\limits_{n = 1}^{\infty} \frac{a_n}{n} \sin(n x) - \frac{b_n}{n} \left( \cos(n x) - 1 \right)
+	\end{align*}
+	This is not a Fourier series due to the $x$ in $\frac{a_0}{2} x$.\\
+	Therefore, substituting the Fourier series of $x$,
+	\begin{align*}
+		\int\limits_{0}^{x} f(t) \dif t & = \sum\limits_{n = 1}^{\infty} \frac{b_n}{n} + \sum\limits_{n = 1}^{\infty} \left( \frac{a_n + (-1)^n a_0}{n} \sin(n x) - \frac{b_n}{n} \cos(n x) \right)
+	\end{align*}
+\end{theorem}
+
+\begin{question}
+	Let $f$ be piecewise continuous with Fourier series
+	\begin{align*}
+		f(x) & \approx \frac{a_0}{2} + \sum\limits_{n = 1}^{\infty} a_n \cos(n x) + b_n \sin(n x)
+	\end{align*}
+	Prove
+	\begin{align*}
+		\sum\limits_{n = 1}^{\infty} \frac{b_n}{n} & \le \infty
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	Let
+	\begin{align*}
+		F(x) & = \int\limits_{0}^{x} f(t) \dif t
+	\end{align*}
+	Therefore, as $f(x)$ is piecewise continuous, $F(x)$ is also piecewise continuous.\\
+	Therefore,
+	\begin{align*}
+		F(x) & = \frac{a_0}{2} x + \sum\limits_{n = 1}^{\infty} \frac{a_n}{n} \sin(n x) - \frac{b_n}{n} \left( \cos(n x) - 1 \right)
+	\end{align*}
+	Therefore, the Fourier series of $F(x) - \frac{a_0}{2} x$ is
+	\begin{align*}
+		F(x) - \frac{a_0}{2} x & \approx \sum\limits_{n = 1}^{\infty} \frac{a_n}{n} \sin(n x) - \frac{b_n}{n} \left( \cos(n x) - 1 \right) \\
+                                       & \approx \sum\limits_{n = 1}^{\infty} \frac{b_n}{n} + \sum\limits_{n = 1}^{\infty} \frac{a_n}{n} \sin(n x) - \frac{b_n}{n} \cos(n x)
+	\end{align*}
+	Therefore, as $F(x) - \frac{a_0}{2} x$ is piecewise continuous and finite, $\sum\limits_{n = 1}^{\infty} \frac{b_n}{n}$ is also finite.
+\end{solution}
+
 \end{document}
