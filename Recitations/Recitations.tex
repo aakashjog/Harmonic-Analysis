@@ -593,4 +593,62 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 	Therefore, as $F(x) - \frac{a_0}{2} x$ is piecewise continuous and finite, $\sum\limits_{n = 1}^{\infty} \frac{b_n}{n}$ is also finite.
 \end{solution}
 
+\recitation
+
+\begin{theorem}
+	If $f$ is $2 \pi$ periodic and $k$ times differentiable, such that the $k$ derivatives are continuous and $f^{(k + 1)}(x)$ is piecewise continuous, then,
+	\begin{equation*}
+		\lim\limits_{n \to \infty} \left| n^{k + 1} a_n \right| = \lim\limits_{n \to \infty} \left| n^{k + 1} b_n \right| = \lim\limits_{n \to \infty} \left| n^{k + 1} c_n \right| = 0
+	\end{equation*}
+\end{theorem}
+
+\begin{theorem}
+	If the Fourier coefficients of a $2 \pi$ periodic function satisfy
+	\begin{align*}
+		|c_n| & \le \frac{c}{n^{k + 1 + \varepsilon}}
+	\end{align*}
+	where $\varepsilon > 0$, and $c$ is constant, then $f$ is $k$ times differentiable.
+\end{theorem}
+
+\begin{question}
+	The Fourier series of $f$ is
+	\begin{align*}
+		f(x) & = \sum\limits_{n = 1}^{\infty} \frac{n^2 + 1}{n^4} e^{i n x}
+	\end{align*}
+	If $f$ differentiable four times?
+\end{question}
+
+\begin{solution}
+	As $f(x)$ equals it Fourier series, $f(x)$ must also be periodic with period $2 \pi$.\\
+	If possible, let $f$ be differentiable 4 times, with all derivatives being continuous,  and the let the fifth derivative be piecewise continuous.\\
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} \left| n^5 c_n \right| & = \lim\limits_{n \to \infty} \left| n^5 \frac{n^2 + 1}{n^4} \right| \\
+                                                                  & = \infty
+	\end{align*}
+	Therefore, as the limit is not zero, $f$ is not differentiable 4 times.
+\end{solution}
+
+\begin{question}
+	Let
+	\begin{align*}
+		f(x) & = \sum\limits_{n \neq 0} \frac{1}{n^{2.01}} e^{i n x}
+	\end{align*}
+	Give an upper bound for the number of times it is differentiable.
+\end{question}
+
+\begin{solution}
+	$f(x)$ is $2 \pi$ periodic.
+	\begin{align*}
+		\lim\limits_{n \to \infty} \left| n^3 \frac{1}{n^{2.01}} \right| & = \infty
+	\end{align*}
+	Therefore, $f$ is differentiable at most twice.
+	Also,
+	\begin{align*}
+		|c_n| & = \frac{1}{n^{2.01}} \\
+                      & = \frac{1}{n^{1 + 1 + 0.01}}
+	\end{align*}
+	Therefore, $f(x)$ is differentiable once.\\
+\end{solution}
+
 \end{document}
