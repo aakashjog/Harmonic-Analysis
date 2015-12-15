@@ -651,4 +651,109 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 	Therefore, $f(x)$ is differentiable once.\\
 \end{solution}
 
+\recitation
+\section{Inner Product Spaces}
+
+\begin{definition}[Norm]
+	Let $V$ be a vector space.
+	A function $\|\cdot\| : V \to \mathbb{R}^+$, such that
+	\begin{enumerate}
+		\item
+			$\forall v \in V$
+			\begin{align*}
+				\|v\| & \ge 0
+			\end{align*}
+			and $\|v\| = 0$ if an only if $v = \overrightarrow{0}$.
+		\item
+			$\forall v \in V$ and $\alpha \in \mathbb{F}$,
+			\begin{align*}
+				\|\alpha v\| & = |\alpha| \|v\|
+			\end{align*}
+		\item
+			$\forall u,v \in V$,
+			\begin{align*}
+				\|u + v\| & \le \|u\| + \|v\|
+			\end{align*}
+	\end{enumerate}
+	is called a norm.\\
+	It is usually defined as
+	\begin{align*}
+		\|v\| & = \sqrt{\langle v,v \rangle}
+	\end{align*}
+\end{definition}
+
+\begin{theorem}[Pythagoras Theorem]
+	If $u,v \in V$ are orthogonal vectors in an inner product space, then
+	\begin{align*}
+		\|u + v\|^2 & = \|u\|^2 + \|v\|^2
+	\end{align*}
+	\label{thm:Pythagoras_Theorem}
+\end{theorem}
+
+\begin{proof}
+	As $u$ and $v$ are orthogonal,
+	\begin{align*}
+		\langle u,v \rangle & = 0
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\|u + v\|^2         & = \langle u + v , u + v \rangle                                                         \\
+                                    & = \langle u + v , u \rangle + \langle u + v , v \rangle                                 \\
+                                    & = \langle u,u \rangle + \langle v,u \rangle + \langle u,v \rangle + \langle v,v \rangle \\
+                                    & = \langle u,u \rangle + \langle v,v \rangle                                             \\
+                                    & = \|u\|^2 + \|v\|^2
+	\end{align*}
+\end{proof}
+
+\begin{question}
+	Let the inner product of two functions over the vector space $C^0[-\pi,\pi]$, i.e. the set of all continuous functions over $[-\pi,\pi]$ be defined as
+	\begin{align*}
+		\langle f,g \rangle & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(x) g(x) \dif x
+	\end{align*}
+	Find the norm of $f$ in this space.\\
+	Show
+	\begin{align*}
+		\left\| \sin(n x) \right\| & = 1 \\
+		\left\| \cos(n x) \right\| & = 1
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\|f\| & = \sqrt{\langle f,f \rangle} \\
+                      & = \sqrt{\frac{1}{\pi} \int\limits_{-\pi}^{\pi} \left( f(x) \right)^2 \dif x}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\left\| \cos(n x) \right\| & = \sqrt{\frac{1}{\pi} \int\limits_{-\pi}^{\pi} \cos^2(n x) \dif x} \\
+                                           & = \sqrt{\frac{1}{\pi} \pi}                                         \\
+                                           & = 1
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\left\| \sin(n x) \right\| & = \sqrt{\frac{1}{\pi} \int\limits_{-\pi}^{\pi} \sin^2(n x) \dif x} \\
+                                           & = \sqrt{\frac{1}{\pi} \pi}                                         \\
+                                           & = 1
+	\end{align*}
+\end{solution}
+
+\begin{definition}
+	A set is said to be orthonormal if $\forall u,v \in V$,
+	\begin{align*}
+		\langle u,v \rangle & = 0
+	\end{align*}
+	and
+	\begin{align*}
+		\|v\| & = 1
+	\end{align*}
+\end{definition}
+
+\begin{theorem}
+	In the space $C^0[-\pi,\pi]$ with
+	\begin{align*}
+		\langle f,g \rangle & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(x) g(x) \dif x
+	\end{align*}
+	the set $\left\{ \frac{1}{\sqrt{2}} \right\} \cup \left\{ \cos(n x) \right\}_{n = 1}^{\infty} \cup \left\{ \sin(n x) \right\}_{n = 1}^{\infty}$ is orthonormal.
+\end{theorem}
+
 \end{document}
