@@ -1,0 +1,211 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+%\usepackage[top = 2cm, bottom = 1cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{exsheets, tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage[free-standing-units, space-before-unit]{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections, decorations.markings}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate,enumitem} %numbered lists
+\usepackage{float} %inserting floats
+\usepackage{circuitikz}[american voltages, american currents] %circuit diagrams
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[1].}
+
+\SetupExSheets{solution/print = true}
+
+%opening
+\title{Harmonic Analysis : Assignment 6}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{15}{12}{2015}}
+
+\begin{document}
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\begin{question}
+	Calculate as exactly as you can how many times the series is continuously differentiable.
+	\begin{enumerate}
+		\item $f(x) = \sum\limits_{n = 1}^{\infty} \frac{\sin(n x)}{n^4}$
+		\item $f(x) = \sum\limits_{n = 1}^{\infty} \frac{\sin(n x)}{n^{4.01}}$
+		\item $f(x) = \sum\limits_{n = 1}^{\infty} \frac{1}{n^4} e^{i n x}$
+		\item $f(x) = \sum\limits_{n = 1}^{\infty} \frac{1}{n^{5.01}} e^{i n x}$
+		\item $f(x) = \sum\limits_{n = 0}^{\infty} \frac{1}{2^n} e^{i 2^n x}$
+		\item $f(x) = \sum\limits_{n = 2}^{\infty} \frac{e^{i n x}}{n \log^2 n}$
+		\item $f(x) = \sum\limits_{n = 2}^{\infty} \frac{e^{i n x}}{n \log n}$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				\lim\limits_{n \to \infty} n \frac{\sin(n x)}{n^4}   & = 0    \\
+				\lim\limits_{n \to \infty} n^2 \frac{\sin(n x)}{n^4} & = 0    \\
+				\lim\limits_{n \to \infty} n^3 \frac{\sin(n x)}{n^4} & = 0    \\
+				\lim\limits_{n \to \infty} n^4 \frac{\sin(n x)}{n^4} & \neq 0 \\
+			\end{align*}
+			Therefore, the function is continuously differentiable at most 3 times.
+		\item
+			\begin{align*}
+				\lim\limits_{n \to \infty} n \frac{\sin(n x)}{n^{4.01}}   & = 0 \\
+				\lim\limits_{n \to \infty} n^2 \frac{\sin(n x)}{n^{4.01}} & = 0 \\
+				\lim\limits_{n \to \infty} n^3 \frac{\sin(n x)}{n^{4.01}} & = 0 \\
+				\lim\limits_{n \to \infty} n^4 \frac{\sin(n x)}{n^{4.01}} & = 0 \\
+				\lim\limits_{n \to \infty} n^5 \frac{\sin(n x)}{n^{4.01}} & \neq 0
+			\end{align*}
+			Therefore, the function is continuously differentiable at most 4 times.
+		\item
+			\begin{align*}
+				\lim\limits_{n \to \infty} n \frac{e^{i n x}}{n^4}   & = 0    \\
+				\lim\limits_{n \to \infty} n^2 \frac{e^{i n x}}{n^4} & = 0    \\
+				\lim\limits_{n \to \infty} n^3 \frac{e^{i n x}}{n^4} & = 0    \\
+				\lim\limits_{n \to \infty} n^4 \frac{e^{i n x}}{n^4} & \neq 0 \\
+			\end{align*}
+			Therefore, the function is continuously differentiable at most 3 times.
+			\begin{align*}
+				\frac{1}{n^4} & \le \frac{1}{n^{2 + 1 + \varepsilon}} \\
+			\end{align*}
+			Therefore, the function is differentiable 2 times.
+		\item
+			\begin{align*}
+				\lim\limits_{n \to \infty} n \frac{e^{i n x}}{n^{5.01}}   & = 0 \\
+				\lim\limits_{n \to \infty} n^2 \frac{e^{i n x}}{n^{5.01}} & = 0 \\
+				\lim\limits_{n \to \infty} n^3 \frac{e^{i n x}}{n^{5.01}} & = 0 \\
+				\lim\limits_{n \to \infty} n^4 \frac{e^{i n x}}{n^{5.01}} & = 0 \\
+				\lim\limits_{n \to \infty} n^5 \frac{e^{i n x}}{n^{5.01}} & = 0 \\
+				\lim\limits_{n \to \infty} n^6 \frac{e^{i n x}}{n^{5.01}} & \neq 0
+			\end{align*}
+			Therefore, the function is continuously differentiable at most 5 times.
+			\begin{align*}
+				\frac{1}{n^{5.01}} & \le \frac{1}{n^{4 + 1 + \varepsilon}} \\
+			\end{align*}
+			Therefore, the function is differentiable 4 times.
+		\item
+			Let
+			\begin{align*}
+				k & = 2^n
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				f(x) & = \sum\limits_{k = 1,2,4,\dots}^{\infty} \frac{1}{k} e^{i k x}
+			\end{align*}
+			Therefore, $f(x)$ is differentiable 0 times.\\
+		\item
+			\begin{align*}
+				\lim\limits_{n \to \infty} n \frac{e^{i n x}}{n \log^2 n}   & = 0 \\
+				\lim\limits_{n \to \infty} n^2 \frac{e^{i n x}}{n \log^2 n} & \neq 0
+			\end{align*}
+			Therefore, the function is continuously differentiable at most 2 times.
+		\item
+			\begin{align*}
+				\lim\limits_{n \to \infty} n \frac{e^{i n x}}{n \log n}   & = 0 \\
+				\lim\limits_{n \to \infty} n^2 \frac{e^{i n x}}{n \log n} & \neq 0
+			\end{align*}
+			Therefore, the function is continuously differentiable at most 2 times.
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Let
+	\begin{align*}
+		f(x) & = 3 x^5 - 10 \pi^2 x^3 + 7 \pi^4 x
+	\end{align*}
+	Prove
+	\begin{align*}
+		\lim\limits_{n \to \infty} n^3 c_n & = 0
+	\end{align*}
+	where $c_n$ are the Fourier coefficients of $f(x)$.
+\end{question}
+
+\begin{solution}
+	The function is 5 times differentiable.\\
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} \left| n^5 c_n \right| & = 0 \\
+		\lim\limits_{n \to \infty} \left| n^3 c_n \right| & = 0
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	For the function
+	\begin{align*}
+		f(x) & = \sum\limits_{n = 1}^{\infty} \left( \frac{\sin n x}{3 n^4 + 5 n^6} + \frac{\cos n x}{n^9 + 3 n^7} \right)
+	\end{align*}
+	Find the maximal $k$, such that $f^{(k)}(x)$ is continuous.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\lim\limits_{n \to \infty} n f(x)   & = 0 \\
+		\lim\limits_{n \to \infty} n^2 f(x) & = 0 \\
+		\lim\limits_{n \to \infty} n^3 f(x) & = 0 \\
+		\lim\limits_{n \to \infty} n^4 f(x) & = 0 \\
+		\lim\limits_{n \to \infty} n^5 f(x) & \neq 0
+	\end{align*}
+	Therefore, $f$ is differentiable 4 times.\\
+	Therefore, $f^{(4)}(x)$ exists.\\
+	Therefore, $f^{(3)}(x)$ must be differentiable, and hence continuous.\\
+	Therefore, the maximal $k$ is $3$.
+\end{solution}
+
+\end{document}
