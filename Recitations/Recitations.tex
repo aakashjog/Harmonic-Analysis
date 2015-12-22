@@ -61,6 +61,9 @@
 
 \newcommand{\divergence}{\mathrm{div\,}}
 
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\setspan}{span}
+
 \makeatletter
 \@addtoreset{section}{part} %resets section numbers in new part
 \makeatother
@@ -755,5 +758,109 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 	\end{align*}
 	the set $\left\{ \frac{1}{\sqrt{2}} \right\} \cup \left\{ \cos(n x) \right\}_{n = 1}^{\infty} \cup \left\{ \sin(n x) \right\}_{n = 1}^{\infty}$ is orthonormal.
 \end{theorem}
+
+\recitation
+
+\begin{definition}[Orthonormal set]
+	A set $\{c_1,\dots,c_n\}$ is said to be orthonormal if
+	\begin{align*}
+		\langle c_i,c_j \rangle & = \delta_{i j}
+	\end{align*}
+\end{definition}
+
+\begin{definition}[Projection]
+	Let $W$ be a subspace of a vector space $V$, such that
+	\begin{align*}
+		W & = \setspan\{c_1,\dots,c_n\}
+	\end{align*}
+	The projection of a vector $v$ with respect to $W$ is defined as
+	\begin{align*}
+		\proj_{W}(v) & = v_W                                                             \\
+                             & = \sum\limits_{k = 1}^{n} \frac{\langle v,c_k \rangle}{\|c_k\|^2} \\
+	\end{align*}
+	If $W$ is orthonormal,
+	\begin{align*}
+		v_W & = \sum\limits_{k = 1}^{n} \langle v,c_k \rangle c_k
+	\end{align*}
+\end{definition}
+
+\begin{theorem}
+	Let $W$ be a subspace of a vector space $V$.
+	Let $v \in V$.\\
+	Then, $v_W$ is the best approximation for $v$ in $W$, i.e.
+	\begin{align*}
+		\left\| v - \proj_W(v) \right\| & = \min\limits_{w \in W} \|v - w\|
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}
+	Let $W$ be a subspace of a vector space $V$.
+	Let $v \in V$.\\
+	Then, $v - v_W \in W^{\perp}$, and $v_W \in W$.
+\end{theorem}
+
+\begin{theorem}
+	Let $W$ be a subspace of a vector space $V$.
+	Let $v \in V$.\\
+	\begin{align*}
+		\|v\|^2 & = \|v_W\|^2 + \left\| v - v_W \right\|^2
+	\end{align*}
+\end{theorem}
+
+\begin{question}
+	Let
+	\begin{align*}
+		W & = \setspan{1,\cos(2 x),\sin(x)}
+	\end{align*}
+	and
+	\begin{align*}
+		f(x) & = x
+	\end{align*}
+	with inner product
+	\begin{align*}
+		\langle f,g \rangle & = \int\limits_{-\pi}^{\pi} f(x) g(x) \dif x
+	\end{align*}
+	\begin{enumerate}
+		\item
+			Find $g \in W$, which is the best approximation for $f$.
+		\item
+			Find $\alpha$, $\beta$, $\gamma$, so that the function
+			\begin{align*}
+				F(\alpha,\beta,\gamma) & = \left\| f- \left( \alpha + \beta \cos(2 x) + \gamma \sin(x) \right) \right\|
+			\end{align*}
+			is minimal.
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				\proj_{W}(f) & = \frac{\langle f,1 \rangle}{\|1\|^2} 1 + \frac{\left\langle f,\cos(2 x) \right\rangle}{\left\| \cos(2 x) \right\|^2} \cos(2 x) + \frac{\langle f,\sin(x) \rangle}{\left\| \sin(x) \right\|^2} \sin(x)
+			\end{align*}
+			Comparing to the standard form of the Fourier series,
+			\begin{align*}
+				a_0 & = \frac{\langle f,1 \rangle}{\|1\|^2}                                         \\
+                                    & = 0                                                                           \\
+				a_2 & = \frac{\left\langle f,\cos(2 x) \right\rangle}{\left\| \cos(2 x) \right\|^2} \\
+                                    & = 0                                                                           \\
+				b_1 & = \frac{\left\langle f,\sin(x) \right\rangle}{\left\| \sin(x) \right\|^2}     \\
+                                    & = 2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				g(x) & = 2 \sin x
+			\end{align*}
+		\item
+			The projection of $f$ onto $W$ is the best approximation of $f$.
+			Therefore, $F$ is minimal.
+			Hence,
+			\begin{align*}
+				\alpha & = 0 \\
+				\beta  & = 0 \\
+				\gamma & = 2
+			\end{align*}
+	\end{enumerate}
+\end{solution}
 
 \end{document}
