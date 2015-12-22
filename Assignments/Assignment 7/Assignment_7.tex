@@ -1,0 +1,306 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+%\usepackage[top = 2cm, bottom = 1cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{exsheets, tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage[free-standing-units, space-before-unit]{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections, decorations.markings}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate,enumitem} %numbered lists
+\usepackage{float} %inserting floats
+\usepackage{circuitikz}[american voltages, american currents] %circuit diagrams
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[1].}
+
+\SetupExSheets{solution/print = true}
+
+%opening
+\title{Harmonic Analysis : Assignment 7}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{22}{12}{2015}}
+
+\begin{document}
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\begin{question}
+	Consider $C[-1,2]$, the space of all complex continuous functions on $[-1,2]$.
+	Which of the following expressions define inner product on $C[-1,2]$?
+	Explain.
+	\begin{enumerate}
+		\item $\langle f,g \rangle = \int\limits_{-1}^{2} \left| f(t) + g(t) \right| \dif t$
+		\item $\langle f,g \rangle = \int\limits_{-1}^{2} f(t) \overline{g(t)} \dif t + f\left( -\frac{1}{2} \right) \overline{g\left( -\frac{1}{2} \right)}$
+		\item $\langle f,g \rangle = f(0) \overline{g(0)} + f(1) \overline{g(1)}$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				\langle f,g \rangle & = \int\limits_{-1}^{2} \left| f(t) + g(t) \right| \dif t
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\overline{\langle g,f \rangle} & = \int\limits_{-1}^{2} \overline{\left| f(t) + g(t) \right|} \dif t \\
+                                                               & = \int\limits_{-1}^{2} \left| f(t) + g(t) \right|                   \\
+                                                               & = \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f + h , g \rangle            & = \int\limits_{-1}^{2} \left| f(t) + h(t) + g(t) \right| \dif t                          \\
+                                                                     & \neq \int\limits_{-1}^{2} \left| f(t) + g(t) \right| + \left| h(t) + g(t) \right| \dif t \\
+				\therefore \langle f + h , g \rangle & \neq \langle f,g \rangle + \langle h,
+			\end{align*}
+			Therefore, it is not an inner product.
+		\item
+			\begin{align*}
+				\langle f,g \rangle & = \int\limits_{-1}^{2} f(t) \overline{g(t)} \dif t + f\left( -\frac{1}{2} \right) \overline{g\left( -\frac{1}{2} \right)}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\overline{\langle g,f \rangle} & = \int\limits_{-1}^{2} \overline{g(t) \overline{f(t)}} \dif t + \overline{g\left( -\frac{1}{2} \right) \overline{f\left( -\frac{1}{2} \right)}} \\
+                                                               & = \int\limits_{-1}^{2} f(t) \overline{g(t)} \dif t + f\left( -\frac{1}{2} \right) \overline{g\left( -\frac{1}{2} \right)}                       \\
+                                                               & = \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f + h , g \rangle & = \int\limits_{-1}^{2} \left( f(t) + h(t) \right) \overline{g(t)} \dif t + \left( f\left( -\frac{1}{2} \right) + h\left( -\frac{1}{2} \right) \right) \overline{g\left( -\frac{1}{2} \right)}                                                       \\
+                                                          & = \int\limits_{-1}^{2} f(t) \overline{g(t)} \dif t + f\left( -\frac{1}{2} \right) \overline{g\left( -\frac{1}{2} \right)} + \int\limits_{-1}^{2} h(t) \overline{g(t)} \dif t + h\left( -\frac{1}{2} \right) \overline{g\left( -\frac{1}{2} \right)} \\
+                                                          & = \langle f,g \rangle + \langle h,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle \alpha f , g \rangle & = \int\limits_{-1}^{2} \alpha f(t) \overline{g(t)} \dif t + \alpha f\left( -\frac{1}{2} \right) \overline{g\left( -\frac{1}{2} \right)} \\
+                                                             & = \alpha \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f,f \rangle & = \int\limits_{-1}^{2} f(t) \overline{f(t)} \dif t + f\left( -\frac{1}{2} \right) \overline{f\left( -\frac{1}{2} \right)} \\
+                                                    & = \int\limits_{-1}^{2} \left| f(t) \right|^2 \dif t + \left| f\left( -\frac{1}{2} \right) \right|^2                       \\
+                                                    & \ge 0
+			\end{align*}
+			Therefore, it is an inner product.
+		\item
+			\begin{align*}
+				\langle f,g \rangle & = f(0) \overline{g(0)} + f(1) \overline{g(1)}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\overline{\langle g,f \rangle} & = \overline{g(0) \overline{f(0)} + g(1) \overline{f(1)}}            \\
+                                                               & = \overline{g(0) \overline{f(0)}} + \overline{g(1) \overline{f(1)}} \\
+                                                               & = f(0) \overline{g(0)} + f(1) \overline{g(1)}                       \\
+                                                               & = \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f + h , g \rangle & = \left( f(0) + h(0) \right) \overline{g(0)} + \left( f(1) + h(1) \right) \overline{g(1)}   \\
+                                                          & = f(0) \overline{g(0)} + f(1) \overline{g(1)} + h(0) \overline{g(0)} + h(1) \overline{g(1)} \\
+                                                          & = \langle f,g \rangle + \langle h,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle \alpha f , g \rangle & = \alpha f(0) \overline{g(0)} + \alpha f(1) \overline{g(1)} \\
+                                                             & = \alpha \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f,f \rangle & = f(0) \overline{f(0)} + f(1) \overline{f(1)}   \\
+                                                    & = \left| f(0) \right|^2 + \left| f(1) \right|^2 \\
+                                                    & \ge 0
+			\end{align*}
+			Therefore, it is an inner product.
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Let $V$ be the space of all real, twice continuously differentiable functions of $[-\pi,\pi]$.
+	Is
+	\begin{align*}
+		\langle f,g \rangle & = f(-\pi) g(-\pi) + \int\limits_{-\pi}^{\pi} f''(x) g''(x) \dif x
+	\end{align*}
+	an inner product on $V$?
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\langle f,g \rangle & = f(-\pi) g(-\pi) + \int\limits_{-\pi}^{\pi} f''(x) g''(x) \dif x
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\overline{\langle g,f \rangle} & = \overline{g(-\pi) f(-\pi)} + \int\limits_{-\pi}^{\pi} \overline{f''(x) g''(x)} \dif x \\
+                                               & = g(-\pi) f(-\pi) + \int\limits_{-\pi}^{\pi} f''(x) g''(x) \dif x                       \\
+                                               & = \langle f,g \rangle
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\langle f + h , g \rangle\ & = \left( f(-\pi) + h(-\pi) \right) g(-\pi) + \int\limits_{-\pi}^{\pi} \left( f''(x) + h''(x) \right) g''(x) \dif x                                                    \\
+                                           & = f(-\pi) g(-\pi) + \int\limits_{-\pi}^{\pi} \left( f''(x) + g''(x) \right) \dif x + h(-\pi) g(-\pi) + \int\limits_{-\pi}^{\pi} \left( h''(x) + g''(x) \right) \dif x \\
+                                           & = \langle f,g \rangle + \langle h,g \rangle
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\langle \alpha f , g \rangle & = \alpha f(-\pi) g(-\pi) + \int\limits_{-\pi}^{\pi} \left( \alpha f''(x) + g''(x) \right) \dif x \\
+                                             & = \alpha \langle f,g \rangle
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\langle f,f \rangle & = f(-\pi) f(-\pi) + \int\limits_{-\pi}^{\pi} f''(x) f''(x) \dif x                    \\
+                                    & = \left( f(-\pi) \right)^2 + \int\limits_{-\pi}^{\pi} \left( f''(x) \right)^2 \dif x \\
+                                    & \ge 0
+	\end{align*}
+	Therefore, it is an inner product.
+\end{solution}
+
+\begin{question}
+	Consider $C^1[0,1]$, the space of all complex continuously differentiable functions on $[0,1]$.
+	Which of the following expressions define inner product on $C^1[0,1]$?
+	Explain.
+	\begin{enumerate}
+		\item $\langle f,g \rangle = f(0) \overline{g(0)} + \int\limits_{0}^{1} f'(t) \overline{g'(t)} \dif t$
+		\item $\langle f,g \rangle = f(0) \overline{g(0)} + f'(1) \overline{g'(1)}$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				\langle f,g \rangle & = f(0) \overline{g(0)} + \int\limits_{0}^{1} f'(t) \overline{g'(t)} \dif t
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\overline{\langle g,f \rangle} & = \overline{g(0) f(0)} + \int\limits_{0}^{1} \overline{g'(t) \overline{f'(t)}} \dif t \\
+                                                               & = f(0) \overline{g(0)} + \int\limits_{0}^{1} f'(t) \overline{g'(t)} \dif t            \\
+                                                               & = \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f + g , h \rangle & = \left( f(0) + h(0) \right) \overline{g(0)} + \int\limits_{0}^{1} \left( f'(t) + h'(t) \right) \overline{g'(t)} \dif t                                 \\
+                                                          & = f(0) \overline{g(0)} + h(0) + \overline{g(0)} + \int\limits_{0}^{1} f'(t) \overline{g'(t)} \dif t + \int\limits_{0}^{1} h'(t) \overline{g'(t)} \dif t \\
+                                                          & = \langle f,g \rangle + \langle h,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle \alpha f , g \rangle & = \alpha f(0) \overline{g(0)} + \int\limits_{0}^{1} \alpha f'(t) \overline{g'(t)} \dif t \\
+                                                             & = \alpha \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f,f \rangle & = f(0) \overline{f(0)} + \int\limits_{0}^{1} f'(t) \overline{f'(t)} \dif t  \\
+                                                    & = \left| f(0) \right|^2 + \int\limits_{0}^{1} \left| f'(t) \right|^2 \dif t \\
+                                                    & \ge 0
+			\end{align*}
+			Therefore, it is an inner product.
+		\item
+			\begin{align*}
+				\langle f,g \rangle & = f(0) \overline{g(0)} + f'(1) \overline{g'(1)}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\overline{\langle g,f \rangle} & = \overline{g(0) \overline{f(0)} + g'(1) \overline{f'(1)}}            \\
+                                                               & = \overline{g(0) \overline{f(0)}} + \overline{g'(1) \overline{f'(1)}} \\
+                                                               & = f(0) \overline{g(0)} + f'(1) \overline{g'(1)}                       \\
+                                                               & = \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f + h , g \rangle & = \left( f(0) + h(0) \right) \overline{g(0)} + \left( f'(1) + h'(1) \right) \overline{g'(1)}    \\
+                                                          & = f(0) \overline{g(0)} + h(0) \overline{g(0)} + f'(1) \overline{g'(1)} + h'(1) \overline{g'(1)} \\
+                                                          & = \langle f,g \rangle + \langle h,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle \alpha f , g \rangle & = \alpha f(0) \overline{g(0)} + \alpha f'(1) \overline{g'(1)} \\
+                                                             & = \alpha \langle f,g \rangle
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\langle f,f \rangle & = f(0) \overline{f(0)} + f'(1) \overline{f'(1)}  \\
+                                                    & = \left| f(0) \right|^2 + \left| f'(1)^2 \right| \\
+                                                    & \ge 0
+			\end{align*}
+			Therefore, it is an inner product.
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Let $V$ be an inner product space.
+	Prove that for all $u,v \in V$,
+	\begin{align*}
+		\langle u,v \rangle & = \frac{1}{4} \|u + v\|^2 - \frac{1}{4} \|u - v\|^2
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\frac{1}{4} \|u + v\|^2 - \frac{1}{4} \|u - v\|^2 & = \frac{1}{4} \left( \|u + v\|^2 - \|u - v\|^2 \right)                                                                                                                                                                                    \\
+                                                                  & = \frac{1}{4} \left( \langle u + v , u + v \rangle - \langle u - v , u - v \rangle \right)                                                                                                                                                \\
+                                                                  & = \frac{1}{4} \left( \left( \langle u,u \rangle  + \langle u,v \rangle + \langle v,u \rangle + \langle v,v \rangle \right) - \left( \langle u,u \rangle - \langle u,v \rangle - \langle v,u \rangle + \langle v,v \rangle \right) \right) \\
+                                                                  & = \frac{1}{4} \left( 2 \left( \langle u,v \rangle + \langle v,u \rangle \right) \right)                                                                                                                                                   \\
+                                                                  & = \frac{1}{2} \left( \langle u,v \rangle + \overline{\langle u,v \rangle} \right)                                                                                                                                                         \\
+                                                                  & = \Re\left( \langle u,v \rangle \right)
+	\end{align*}
+	Therefore, if $V$ is a subset of $\mathbb{R}$, then the equality holds.
+\end{solution}
+
+\end{document}
