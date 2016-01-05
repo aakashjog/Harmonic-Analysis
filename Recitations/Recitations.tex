@@ -863,4 +863,102 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 	\end{enumerate}
 \end{solution}
 
+\recitation
+
+\begin{definition}[Complete set]
+	An orthonormal set $\{u_k\}_{k = 1}^{\infty}$ is said to be complete if the only vector $v \in V$, such that $\forall k$,
+	\begin{align*}
+		\langle v,u_k \rangle & = 0
+	\end{align*}
+	is the zero vector.
+\end{definition}
+
+\begin{definition}[Hilbert space]
+	A inner product, normed, complete vector space is said to be a Hilbert space.
+\end{definition}
+
+\begin{theorem}[Central Theorem about Complete Orthonormal Systems]
+	Let $V$ be a Hilbert space.
+	Then, the following conditions are equivalent for an orthonormal set $\{u_k\}_{k = 1}^{\infty}$,
+	\begin{enumerate}
+		\item
+			For $v \in V$, if $\forall k$,
+			\begin{align*}
+				\langle v,u_k \rangle & = 0
+			\end{align*}
+			then
+			\begin{align*}
+				v & = \overrightarrow{0}
+			\end{align*}
+			That is, if any vector is orthogonal to the entire orthonormal set, then the vector must be the zero vector.
+		\item
+			For $v \in V$,
+			\begin{align*}
+				\lim\limits_{n \to \infty} \left\| \sum\limits_{k = 1}^{n} \langle v,u_k \rangle u_k - v \right\| & = 0
+			\end{align*}
+		\item
+			For $v \in V$,
+			\begin{align*}
+				\sum\limits_{k = 1}^{\infty} \left| \langle v,u_k \rangle \right|^2 & = \|v\|^2
+			\end{align*}
+			That is, Perceval's Equality holds.
+	\end{enumerate}
+\end{theorem}
+
+\begin{question}
+	Give an example for an infinite orthogonal set in $L^2\left( [-\pi,\pi] \right)$, which is not a complete set, where $L^2\left( [-\pi,\pi] \right)$ is the space of all functions $f$ such that $\int\limits_{-\pi}^{\pi} |f|^2 \dif x$ is finite.
+\end{question}
+
+\begin{solution}
+	The set $\left\{ \cos(n x) \right\}_{n = 1}^{\infty}$ is an infinite orthogonal set but it is not a complete set as the function
+	\begin{align*}
+		f(x) & = \sin x
+	\end{align*}
+	satisfies
+	\begin{align*}
+		\left\langle f,\cos(n x) \right\rangle & = 0
+	\end{align*}
+	even though
+	\begin{align*}
+		f & \neq 0
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	$\forall n \in \mathbb{N}$, let
+	\begin{align*}
+		h_n(t) & = e^{i n t} - e^{i (n + 1) t}
+	\end{align*}
+	\begin{enumerate}
+		\item
+			Prove that $\{h_n\}_{n = -\infty}^{\infty}$ satisfies the condition that if $f \in L^2\left( [-\pi,\pi] \right)$ and $\langle f,h_n \rangle = 0$ for all $n$, then $f = 0$, where $L^2\left( [-\pi,\pi] \right)$ is the space of all functions $f$ such that $\int\limits_{-\pi}^{\pi} |f|^2 \dif x$ is finite.
+		\item
+			Is $\{h_n\}_{n = -\infty}^{\infty}$ is orthogonal in $L^2\left( [-\pi,\pi] \right)$, where $L^2\left( [-\pi,\pi] \right)$ is the space of all functions $f$ such that $\int\limits_{-\pi}^{\pi} |f|^2 \dif x$ is finite.
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				\langle f,h_n \rangle & = \left\langle f,e^{i n t} - e^{i (n + 1) t} \right\rangle                               \\
+                                                      & = \left\langle f,e^{i n t} \left( 1 - e^{i t} \right) \right\rangle                      \\
+                                                      & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f e^{-i n t} \left( 1 - e^{-i t} \right) \dif t \\
+				\therefore 0          & = \left\langle f \left( 1 - e^{-i t} \right),e^{i n t} \right\rangle                     \\
+			\end{align*}
+			Therefore, as the set $\left\{ e^{i n t} \right\}_{n = -\infty}^{\infty}$ is complete, if the dot product of any function with all $e^{i n t}$ is zero, then the function must be zero.
+			Therefore,
+			\begin{align*}
+				f \left( 1 - e^{-i t} \right) & = 0
+			\end{align*}
+			Therefore, $f = 0$.
+		\item
+			\begin{align*}
+				\langle h_n,h_{n + 1} \rangle & = \left\langle e^{i n t} - e^{i (n + 1) t},e^{i (n + 1) t} - e^{i (n + 1) t} \right\rangle \\
+                                                              & \neq 0
+			\end{align*}
+			Therefore, it is not orthogonal.
+	\end{enumerate}
+\end{solution}
+
 \end{document}
