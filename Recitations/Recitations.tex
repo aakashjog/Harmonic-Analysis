@@ -961,4 +961,136 @@ E-mail: \href{mailto:yaronyeg@mail.tau.ac.il}{yaronyeg@mail.tau.ac.il}\\
 	\end{enumerate}
 \end{solution}
 
+\recitation
+\begin{question}
+	Let $V$ be a Banach space, i.e. a linear, complete space.
+	\begin{enumerate}
+		\item
+			Prove that if $\{v_n\} \subset V$, $\{w_n\} \subset W$ converge to the same vector, then
+			\begin{align*}
+				\lim\limits_{n \to \infty} \|v_n - w_n\| & = 0
+			\end{align*}
+		\item
+			Let $\{v_n\} \subset V$ be a series of vectors, such that
+			\begin{align*}
+				\|v_n\| & \le \frac{1}{2^n}
+			\end{align*}
+			Prove that $\sum\limits_{n = 1}^{\infty} v_n$ converges.
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			Let
+			\begin{align*}
+				\lim\limits_{n \to \infty} v_n & = u \\
+				\lim\limits_{n \to \infty} w_n & = u
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lim\limits_{n \to \infty} \|v_n - w_n\| & = \lim\limits_{n \to \infty} \|v_n - u + u - w_n\|                                  \\
+                                                                         & \le \lim\limits_{n \to \infty} \|v_n - u\| + \lim\limits_{n \to \infty} \|w_n - u\| \\
+                                                                         & \le 0 + 0                                                                           \\
+                                                                         & \le 0
+			\end{align*}
+			Also, as the norm must be non-negative,
+			\begin{align*}
+				0 & \le \lim\limits_{n \to \infty} \|v_n - w_n\|
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lim\limits_{n \to \infty} \|v_n - w_n\| & = 0
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				w_m & = \sum\limits_{n = 1}^{m} v_n
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\|w_{m + k} - w_m\| & = \left\| \sum\limits_{n = m + 1}^{m + k} v_n \right\|  \\
+                                                    & \le \sum\limits_{n = m + 1}^{m + k} \|v_n\|             \\
+                                                    & \le \sum\limits_{n = m + 1}^{m + k} \frac{1}{2^n}       \\
+                                                    & \le \frac{1}{2^m} \sum\limits_{n = 1}^{k} \frac{1}{2^n} \\
+                                                    & \le \frac{1}{2^m}
+       		\end{align*}
+			Therefore,
+			\begin{align*}
+				\lim\limits_{n \to \infty} \|w_{m + k} - w_m\| & = 0
+			\end{align*}
+			Therefore, the series is a Cauchy series.\\
+			As $V$ is a Banach space, it is complete.
+			Hence, a Cauchy series converges in it.\\
+			Therefore, as the series is Cauchy, and the space is Banach, the series converges.
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Let
+	\begin{align*}
+		\lambda_n & = \min\limits_{\alpha \in \mathbb{R}} \frac{1}{\pi} \int\limits_{-\pi}^{\pi} \left| \sqrt{\cos x} - \alpha \cos(n x) \right|^2 \dif x
+	\end{align*}
+	Calculate $\lim\limits_{n \to \infty} \lambda_n$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\langle f,g \rangle & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f \overline{g} \dif x
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\langle f,f \rangle & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f \overline{f} \dif x \\
+                                    & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} |f|^2 \dif x
+	\end{align*}
+	Therefore, if
+	\begin{align*}
+		f(x) & = \sqrt{\cos x}
+	\end{align*}
+	then,
+	\begin{align*}
+		\lambda_n & = \min\limits_{\alpha \in \mathbb{R}} \left| \sqrt{\cos x} - \alpha \cos(n x) \right|^2 \\
+                          & = \min\limits_{\alpha \in \mathbb{R}} \left| f(x) - \alpha \cos(n x) \right|^2
+	\end{align*}
+	Therefore, by the best approximation theorem, $\alpha$ will be the coefficient corresponding to the best approximation, i.e.,
+	\begin{align*}
+		\alpha \cos(n x) & = \proj_{W}\left( \sqrt{\cos x} \right)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\alpha & = \frac{\left\langle \sqrt{\cos x},\cos(n x) \right\rangle}{\left\| \cos(n x) \right\|^2}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lambda_n & = \left\| \sqrt{\cos x} - \alpha \cos(n x) \right\|^2                                                                                                       \\
+                          & = \left\| \sqrt{\cos x} - \frac{\left\langle \sqrt{\cos x},\cos(n x) \right\rangle}{\left\| \cos(n x) \right\|^2} \cos(n x) \right\|^2                      \\
+                          & = \left\| \sqrt{\cos x} \right\|^2 - \frac{\left\langle \sqrt{\cos x},\cos(n x) \right\rangle^2}{\left\| \cos(n x) \right\|^2} \left\| \cos(n x) \right\|^2 \\
+                          & = \left\| \sqrt{\cos x} \right\|^2 - \left\langle \sqrt{\cos x},\cos(n x) \right\rangle
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\left\| \sqrt{\cos x} \right\|^2 & = \frac{1}{\pi} \int\limits_{-\pi}^{\pi} |\cos x| \dif x                   \\
+                                                 & = \frac{2}{\pi} \int\limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \cos x \dif x \\
+                                                 & = \frac{2}{\pi} \left. \sin x \right|_{-\frac{\pi}{2}}^{\frac{\pi}{2}}     \\
+                                                 & = \frac{4}{\pi}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lambda_n & = \frac{4}{\pi} - {a_n}^2
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} \lambda_n & = \lim\limits_{n \to \infty} \left( \frac{4}{\pi} - {a_n}^2 \right) \\
+                                                     & = \frac{4}{\pi} - \lim\limits_{n \to \infty} {a_n}^2
+	\end{align*}
+	By \nameref{Riemann-Lebesgue's_Lemma},
+	\begin{align*}
+		\lim\limits_{n \to \infty} a_n & = 0
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} \lambda_n & = \frac{4}{\pi}
+	\end{align*}
+\end{solution}
+
 \end{document}
