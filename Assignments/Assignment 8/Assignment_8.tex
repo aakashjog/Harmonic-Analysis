@@ -1,0 +1,397 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+%\usepackage[top = 2cm, bottom = 1cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{exsheets, tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage[free-standing-units, space-before-unit]{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections, decorations.markings}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate,enumitem} %numbered lists
+\usepackage{float} %inserting floats
+\usepackage{circuitikz}[american voltages, american currents] %circuit diagrams
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\setspan}{span}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[1].}
+
+\SetupExSheets{solution/print = true}
+
+%opening
+\title{Harmonic Analysis : Assignment 8}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{29}{12}{2015}}
+
+\begin{document}
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\begin{question}
+	Find the minimum point of
+	\begin{align*}
+		F(\alpha,\beta,\gamma) &= \int\limits_{-\pi}^{\pi} \left| f(x) - \left( \alpha + \beta \cos(x) - \gamma \cos(10 x) \right) \right|^2 \dif x
+	\end{align*}
+	for the following functions.
+	\begin{enumerate}
+		\item $\cos^2 x$
+		\item $x^3$
+		\item $\sin x$
+		\item $1 - \cos(2 x)$
+		\item $|x|$
+		\item $|\sin x|$
+	\end{enumerate}
+	Find the projection of the given function on the space spanned by the basis elements and use the best approximation theorem.
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				\proj_{W}(f) &= \frac{\langle f,1 \rangle}{\|1\|^2} 1 + \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|} \cos(x) + \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|} \cos(10 x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\alpha &= \frac{\langle f,1 \rangle}{\|1\|^2}\\
+				&= \frac{\left\langle \cos^2(x),1 \right\rangle}{\|1\|^2}\\
+				&= \frac{1}{2}
+			\end{align*}
+			\begin{align*}
+				\beta &= \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{\left\langle \cos^2(x),\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			\begin{align*}
+				\gamma &= \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{\left\langle \cos^2(x),\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				F(x) &= \alpha + \beta \cos(x) + \gamma \cos(10 x)\\
+				&= \frac{1}{2}
+			\end{align*}
+		\item
+			\begin{align*}
+				\proj_{W}(f) &= \frac{\langle f,1 \rangle}{\|1\|^2} 1 + \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|} \cos(x) + \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|} \cos(10 x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\alpha &= \frac{\langle f,1 \rangle}{\|1\|^2}\\
+				&= \frac{\left\langle x^3,1 \right\rangle}{\|1\|^2}\\
+				&= \frac{0}{2}\\
+				&= 0
+			\end{align*}
+			\begin{align*}
+				\beta &= \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{\left\langle x^3,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			\begin{align*}
+				\gamma &= \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{\left\langle x^3,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				F(x) &= \alpha + \beta \cos(x) + \gamma \cos(10 x)\\
+				&= 0
+			\end{align*}
+		\item
+			\begin{align*}
+				\proj_{W}(f) &= \frac{\langle f,1 \rangle}{\|1\|^2} 1 + \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|} \cos(x) + \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|} \cos(10 x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\alpha &= \frac{\langle f,1 \rangle}{\|1\|^2}\\
+				&= \frac{\left\langle \sin(x),1 \right\rangle}{\|1\|^2}\\
+				&= \frac{0}{2}\\
+				&= 0
+			\end{align*}
+			\begin{align*}
+				\beta &= \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{\left\langle \sin(x),\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			\begin{align*}
+				\gamma &= \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{\left\langle \sin(x),\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				F(x) &= \alpha + \beta \cos(x) + \gamma \cos(10 x)\\
+				&= 0
+			\end{align*}
+		\item
+			\begin{align*}
+				\proj_{W}(f) &= \frac{\langle f,1 \rangle}{\|1\|^2} 1 + \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|} \cos(x) + \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|} \cos(10 x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\alpha &= \frac{\langle f,1 \rangle}{\|1\|^2}\\
+				&= \frac{\left\langle 1 - \cos(2 x),1 \right\rangle}{\|1\|^2}\\
+				&= \frac{2}{2}\\
+				&= 1
+			\end{align*}
+			\begin{align*}
+				\beta &= \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{\left\langle 1 - \cos(2 x),\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			\begin{align*}
+				\gamma &= \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{\left\langle 1 - \cos(2 x),\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				F(x) &= \alpha + \beta \cos(x) + \gamma \cos(10 x)\\
+				&= 1
+			\end{align*}
+		\item
+			\begin{align*}
+				\proj_{W}(f) &= \frac{\langle f,1 \rangle}{\|1\|^2} 1 + \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|} \cos(x) + \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|} \cos(10 x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\alpha &= \frac{\langle f,1 \rangle}{\|1\|^2}\\
+				&= \frac{\left\langle |x|,1 \right\rangle}{\|1\|^2}\\
+				&= \frac{\pi}{2}
+			\end{align*}
+			\begin{align*}
+				\beta &= \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{\left\langle |x|,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{-\frac{4}{\pi}}{1}\\
+				&= -\frac{4}{\pi}
+			\end{align*}
+			\begin{align*}
+				\gamma &= \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{\left\langle |x|,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				F(x) &= \alpha + \beta \cos(x) + \gamma \cos(10 x)\\
+				&= \frac{\pi}{2} - \frac{4}{\pi} \cos(x)
+			\end{align*}
+		\item
+			\begin{align*}
+				\proj_{W}(f) &= \frac{\langle f,1 \rangle}{\|1\|^2} 1 + \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|} \cos(x) + \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|} \cos(10 x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\alpha &= \frac{\langle f,1 \rangle}{\|1\|^2}\\
+				&= \frac{\left\langle \left| \sin(x) \right|,1 \right\rangle}{\|1\|^2}\\
+				&= \frac{\frac{4}{\pi}}{2}\\
+				&= \frac{2}{\pi}
+			\end{align*}
+			\begin{align*}
+				\beta &= \frac{\left\langle f,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{\left\langle \left| \sin(x) \right|,\cos(x) \right\rangle}{\left\| \cos(x) \right\|^2}\\
+				&= \frac{0}{1}\\
+				&= 0
+			\end{align*}
+			\begin{align*}
+				\gamma &= \frac{\left\langle f,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= \frac{\left\langle \left| \sin(x) \right|,\cos(10 x) \right\rangle}{\left\| \cos(10 x) \right\|^2}\\
+				&= -{\frac{4}{99}}{1}\\
+				&= -\frac{4}{99}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				F(x) &= \alpha + \beta \cos(x) + \gamma \cos(10 x)\\
+				&= \frac{2}{\pi} - \frac{4}{99} \cos(10 x)
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	In the space $C[-1,1]$, let the inner product be defined as
+	\begin{align*}
+		\langle f,g \rangle &= \int\limits_{-1}^{1} f(x) \overline{g(x)} \dif x
+	\end{align*}
+	Let the subspace $W$ be defined as
+	\begin{align*}
+		W &= \setspan\left\{ 1,e^{i \pi x},e^{-i \pi x} \right\}
+	\end{align*}
+	and let
+	\begin{align*}
+		f(x) &= \left| \sin\left( \frac{\pi x}{2} \right) \right|
+	\end{align*}
+	Find a function $g \in W$ such that $\|f - g\|$ is minimal, and calculate the norm.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\alpha &= \frac{\left\langle f,1 \right\rangle}{\|1\|^2}\\
+		&= \frac{\left\langle \left| \sin\left( \frac{\pi x}{2} \right) \right|,1 \right\rangle}{\|1\|^2}\\
+		&= \frac{\int\limits_{-1}^{1} \left| \sin\left( \frac{\pi x}{2} \right) \cdot 1 \dif x \right|}{2}\\
+		&= \frac{2 \int\limits_{0}^{1} \sin\left( \frac{\pi x}{2} \right) \cdot 1 \dif x}{2}\\
+		&= \frac{\frac{4}{\pi}}{2}\\
+		&= \frac{2}{\pi}
+	\end{align*}
+	\begin{align*}
+		\beta &= \frac{\left\langle f,e^{i \pi x} \right\rangle}{\left\| e^{i \pi x} \right\|^2}\\
+		&= \frac{\left\langle \left| \sin\left( \frac{\pi x}{2} \right) \right|,e^{i \pi x} \right\rangle}{\left\| e^{i \pi x} \right\|^2}\\
+		&= \frac{\int\limits_{-1}^{1} \left| \sin\left( \frac{\pi x}{2} \right) \right| \overline{e^{i n x}} \dif x}{2}\\
+		&= \frac{2 \int\limits_{0}^{1} \sin\left( \frac{\pi x}{2} \right) e^{-i n x} \dif x}{2}\\
+		&= \frac{-\frac{4}{3 \pi}}{2}\\
+		&= -\frac{2}{3 \pi}
+	\end{align*}
+	\begin{align*}
+		\gamma &= \frac{\left\langle f,e^{-i \pi x} \right\rangle}{\left\| e^{-i \pi x} \right\|^2}\\
+		&= \frac{\left\langle \left| \sin\left( \frac{\pi x}{2} \right) \right|,e^{-i \pi x} \right\rangle}{\left\| e^{-i \pi x} \right\|^2}\\
+		&= \frac{\int\limits_{-1}^{1} \left| \sin\left( \frac{\pi x}{2} \right) \right| \overline{e^{-i n x}} \dif x}{2}\\
+		&= \frac{2 \int\limits_{0}^{1} \sin\left( \frac{\pi x}{2} \right) e^{i n x} \dif x}{2}\\
+		&= \frac{-\frac{4}{3 \pi}}{2}\\
+		&= -\frac{2}{3 \pi}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		g &= \alpha + \beta e^{i n x} + \gamma e^{-i n x}\\
+		&= \frac{2}{\pi} - \frac{2}{3 \pi} e^{i n x} - \frac{2}{3 \pi} e^{-i n x}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\left\langle f - g \right\rangle &= \left\langle \left| \sin\left( \frac{\pi x}{2} \right) \right| - \frac{2}{\pi} - \frac{2}{3 \pi} e^{i n x} - \frac{2}{3 \pi} e^{-i n x} , \right.\\
+		&\quad \quad \left. \left| \sin\left( \frac{\pi x}{2} \right) \right| - \frac{2}{\pi} - \frac{2}{3 \pi} e^{i n x} - \frac{2}{3 \pi} e^{-i n x} \right\rangle
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Let
+	\begin{align*}
+		\lambda_n &= \min\limits_{\alpha \in \mathbb{C}}\left( \frac{1}{2 \pi} \int\limits_{-\pi}^{\pi} \left| \sqrt{|\cos x|} - \alpha \cos(n x) \right|^2 \dif x \right)
+	\end{align*}
+	Calculate $\lim\limits_{n \to \infty} \lambda_n$.
+\end{question}
+
+\begin{question}
+	Consider the function
+	\begin{align*}
+		f(x) &= |\cos x|
+	\end{align*}
+	Use the Fourier series of $f$,
+	\begin{align*}
+		f(x) &= \frac{2}{\pi} - \frac{4}{\pi} \sum\limits_{n = 1}^{\infty} \frac{(-1)^n \cos(2 n x)}{4 n^2 - 1}
+	\end{align*}
+	to prove that for all $a,b \in \mathbb{C}$, the following condition holds.
+	\begin{align*}
+		\int\limits_{-\pi}^{\pi} \left| |\cos x| - a \sin x - b \cos(2 x) \right|^2 \dif x &\ge \pi - \frac{88}{9 \pi}
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	Let
+	\begin{align*}
+		W_n &= \setspan\left\{ \cos(n x) \right\}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\proj_{W_n}(f) &= \frac{\left\langle f,\cos(n x) \right\rangle}{\left\| \cos(n x) \right\|^2} \cos(n x)
+	\end{align*}
+	Therfore, by the best approximation theorem,
+	\begin{align*}
+		\lambda_n &= \left\| f - \proj_{W_n}(f) \right\|
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{n \to \infty} \lambda_n &= \lim\limits_{n \to \infty} \left\| f - \proj_{W_n}(f) \right\|\\
+		&= \lim\limits_{n \to \infty} \left\| f - \frac{\left\langle f,\cos(n x) \right\rangle}{\left\| \cos(n x) \right\|^2} \cos(n x) \right\|
+	\end{align*}
+\end{solution}
+
+\begin{solution}
+	The standard Fourier coefficients are
+	\begin{align*}
+		a_2 &= -\frac{4}{\pi} \frac{(-1)^1}{4 \cdot 1^2 - 1}\\
+		&= \frac{4}{3 \pi}\\
+		b_1 &= 0\\
+	\end{align*}
+	Let
+	\begin{align*}
+		I &= \int\limits_{-\pi}^{\pi} \left| |\cos x| - a \sin x - b \cos(2 x) \right|^2 \dif x
+	\end{align*}
+	Therefore, by the best approximation theorem, as the Fourier coefficients give the best approximation,
+	\begin{align*}
+		I &\ge \int\limits_{-\pi}^{\pi} \left| |\cos x| - b_1 \sin x - a_2 \cos(2 x) \right|^2 \dif x\\
+		&\ge \int\limits_{-\pi}^{\pi} \left| |\cos x| - \frac{4}{3 \pi} \cos(2 x) \right|^2 \dif x\\
+		&\ge 2 \int\limits_{0}^{\pi} \left( \cos(x) - \frac{4}{3 \pi} \cos(2 x) \right)^2 \dif x\\
+		&\ge 2 \int\limits_{0}^{\pi} \cos^2 x - \frac{8}{3 \pi} |\cos x| \cos(2 x) + \frac{16}{9 \pi^2} \cos^2(2 x) \dif x\\
+		&\ge 2 \int\limits_{0}^{\pi} \cos^2 x - \frac{16}{3 \pi} \int\limits_{0}^{\pi} |\cos x| \cos(2 x) \dif x + \frac{32}{9 \pi^2} \int\limits_{0}^{\pi} \cos^2(2 x) \dif x\\
+		&\ge 2 \frac{\pi}{2} - \frac{16}{3 \pi} \frac{2}{3} + \frac{32}{9 \pi^2} \frac{\pi}{2}\\
+		&\ge \pi - \frac{32}{9 \pi} + \frac{16}{9 \pi^2}\\
+		&\ge \pi - \frac{88}{9 \pi}
+	\end{align*}
+	\qed
+\end{solution}
+
+\end{document}
